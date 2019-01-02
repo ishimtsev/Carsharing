@@ -27,6 +27,7 @@ namespace carsharing_project
 			NpgsqlCommand npgSqlCommand = new NpgsqlCommand("SELECT * FROM example", npgSqlConnection);
 			NpgsqlDataReader npgSqlDataReader = npgSqlCommand.ExecuteReader();
 			npgSqlConnection.Close();
+			//
 		}
 	}
 }
