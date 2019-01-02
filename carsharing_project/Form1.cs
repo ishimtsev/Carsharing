@@ -28,7 +28,7 @@ namespace carsharing_project
 			NpgsqlDataReader npgSqlDataReader = npgSqlCommand.ExecuteReader();
 			npgSqlConnection.Close();
 			//
-			// Тимур (не)лох
+			// Тимур лох
 			//
 		}
 	}
