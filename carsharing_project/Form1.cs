@@ -20,7 +20,13 @@ namespace carsharing_project
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			
+			String connectionString = "Server=localhost;Port=5432;User=postgres;Password=1;Database=cyberforum;";
+			NpgsqlConnection npgSqlConnection = new NpgsqlConnection(connectionString);
+			npgSqlConnection.Open();
+			Console.WriteLine("Соединение с БД открыто");
+			NpgsqlCommand npgSqlCommand = new NpgsqlCommand("SELECT * FROM example", npgSqlConnection);
+			NpgsqlDataReader npgSqlDataReader = npgSqlCommand.ExecuteReader();
+			npgSqlConnection.Close();
 		}
 	}
 }
