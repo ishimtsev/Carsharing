@@ -11,25 +11,15 @@ using Npgsql;
 
 namespace carsharing_project
 {
-    public partial class NewClient : Form
+    public partial class AddClient : Form
     {
         public bool EditMode = false;
-        public string id;
+        public string id; //id клиента
 
-        public NewClient()
+        public AddClient()
         {
             InitializeComponent();
         }
-
-        //public NewClient(string publisherName)
-        //{
-        //    InitializeComponent();
-        //    if (publisherName != string.Empty)
-        //    {
-        //        fioTextBox.Text += publisherName;
-        //        fioTextBox.ReadOnly = true;
-        //    }
-        //}
 
         private void OKb_Click(object sender, EventArgs e)
         {
@@ -54,7 +44,7 @@ namespace carsharing_project
                 if (passTextBox.Text == string.Empty)
                     throw new Exception("Не заданы паспортные данные.");
 
-                using (NpgsqlConnection cn = carsharing_project.Form1.connection)
+                using (NpgsqlConnection cn = MenuForm.con)
                 {
                     cn.Open();
                     string parameters = " WHERE passport LIKE '" + passTextBox.Text + "'";
@@ -96,11 +86,6 @@ namespace carsharing_project
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        private void AddCustomer_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            EditMode = false;
         }
     }
 }
