@@ -16,6 +16,7 @@ namespace carsharing_project
 		public bool EditMode = false;
 		public string empID = string.Empty;
 		public string posID = string.Empty;
+		public string linkID = string.Empty;
 
 		public AddEmployee()
 		{
@@ -23,12 +24,13 @@ namespace carsharing_project
 			SexComboBox1.SelectedIndex = 0;
 		}
 
-		public AddEmployee(string emp_id, string pos_id, string fio, string address, string sex, string age, string passport, string phone)
+		public AddEmployee(string linkid, string emp_id, string pos_id, string fio, string address, string sex, string age, string passport, string phone)
 		{
 			InitializeComponent();
 			EditMode = true;
 			empID = emp_id;
 			posID = pos_id;
+			linkID = linkid;
 			fiotextBox1.Text = fio;
 			addresstextBox2.Text = address;
 			if (sex == "Мужской")
@@ -117,16 +119,33 @@ namespace carsharing_project
 					using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
 					{
 						cn.Open();
-						NpgsqlCommand cmd = new NpgsqlCommand("insert into \"employee-position_table\" (emp_id, pos_id) VALUES (" + empID + ", " + PositionsListBox1.SelectedValue + ");", cn);
+						NpgsqlCommand cmd = new NpgsqlCommand("insert into \"employee-position_table\" (emp_id, pos_id) VALUES (" + empID + ", " + PositionsListBox1.SelectedValue.ToString() + ");", cn);
 						cmd.ExecuteNonQuery();
 						cn.Close();
 					}
 				}
 				else //если редактируем сотрудника
 				{
+					if (PositionsListBox1.SelectedIndex == -1)
+						throw new Exception("Не выбрана должность.");
+					if (fiotextBox1.Text == "" || addresstextBox2.Text == "" || agetextBox3.Text == "" || passporttextBox4.Text == "" || phonetextBox5.Text == "")
+						throw new Exception("Заполните все поля.");
+					if (!int.TryParse(agetextBox3.Text, out int age) || (age < 18) || (age > 100))
+						throw new Exception("Введён некорректный возраст.");
+
 					using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
 					{
+						cn.Open();
+						NpgsqlCommand cmd1 = new NpgsqlCommand("update employee_table SET fio='" + fiotextBox1.Text + "', address='" + addresstextBox2.Text + "', sex=" + (SexComboBox1.SelectedIndex == 0 ? "false" : "true") + ", age='" + agetextBox3.Text + "', passport='" + passporttextBox4.Text + "', phone='" + phonetextBox5.Text + "' WHERE emp_id='" + empID + "';", cn);
+						cmd1.ExecuteNonQuery();
 
+						if (posID != PositionsListBox1.SelectedValue.ToString())
+						{
+							NpgsqlCommand cmd2 = new NpgsqlCommand("update \"employee-position_table\" SET pos_id='" + posID + "' WHERE link_id='" + linkID + "';", cn);
+							cmd2.ExecuteNonQuery();
+						}
+
+						cn.Close();
 					}
 
 
