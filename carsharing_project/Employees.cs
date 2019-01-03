@@ -23,5 +23,11 @@ namespace carsharing_project
 			AddEmployee form = new AddEmployee();
 			form.Show();
 		}
+
+		private void PositionsButton_Click(object sender, EventArgs e)
+		{
+			Positions form = new Positions();
+			form.Show();
+		}
 	}
 }

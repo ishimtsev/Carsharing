@@ -33,7 +33,7 @@
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.SexComboBox1 = new System.Windows.Forms.ComboBox();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.fiotextBox1 = new System.Windows.Forms.TextBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
@@ -42,10 +42,10 @@
 			this.label6 = new System.Windows.Forms.Label();
 			this.label7 = new System.Windows.Forms.Label();
 			this.OKbutton1 = new System.Windows.Forms.Button();
-			this.textBox2 = new System.Windows.Forms.TextBox();
-			this.textBox3 = new System.Windows.Forms.TextBox();
-			this.textBox4 = new System.Windows.Forms.TextBox();
-			this.textBox5 = new System.Windows.Forms.TextBox();
+			this.addresstextBox2 = new System.Windows.Forms.TextBox();
+			this.agetextBox3 = new System.Windows.Forms.TextBox();
+			this.passporttextBox4 = new System.Windows.Forms.TextBox();
+			this.phonetextBox5 = new System.Windows.Forms.TextBox();
 			this.PositionsListBox1 = new System.Windows.Forms.ListBox();
 			this.EmployeesListBox2 = new System.Windows.Forms.ListBox();
 			this.groupBox1.SuspendLayout();
@@ -109,12 +109,12 @@
 			this.SexComboBox1.Size = new System.Drawing.Size(303, 24);
 			this.SexComboBox1.TabIndex = 3;
 			// 
-			// textBox1
+			// fiotextBox1
 			// 
-			this.textBox1.Location = new System.Drawing.Point(166, 21);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(303, 22);
-			this.textBox1.TabIndex = 4;
+			this.fiotextBox1.Location = new System.Drawing.Point(166, 21);
+			this.fiotextBox1.Name = "fiotextBox1";
+			this.fiotextBox1.Size = new System.Drawing.Size(303, 22);
+			this.fiotextBox1.TabIndex = 4;
 			// 
 			// groupBox2
 			// 
@@ -124,11 +124,11 @@
 			this.groupBox2.Controls.Add(this.label4);
 			this.groupBox2.Controls.Add(this.label3);
 			this.groupBox2.Controls.Add(this.label1);
-			this.groupBox2.Controls.Add(this.textBox5);
-			this.groupBox2.Controls.Add(this.textBox4);
-			this.groupBox2.Controls.Add(this.textBox3);
-			this.groupBox2.Controls.Add(this.textBox2);
-			this.groupBox2.Controls.Add(this.textBox1);
+			this.groupBox2.Controls.Add(this.phonetextBox5);
+			this.groupBox2.Controls.Add(this.passporttextBox4);
+			this.groupBox2.Controls.Add(this.agetextBox3);
+			this.groupBox2.Controls.Add(this.addresstextBox2);
+			this.groupBox2.Controls.Add(this.fiotextBox1);
 			this.groupBox2.Controls.Add(this.SexComboBox1);
 			this.groupBox2.Enabled = false;
 			this.groupBox2.Location = new System.Drawing.Point(306, 48);
@@ -202,33 +202,33 @@
 			this.OKbutton1.UseVisualStyleBackColor = true;
 			this.OKbutton1.Click += new System.EventHandler(this.OKbutton1_Click);
 			// 
-			// textBox2
+			// addresstextBox2
 			// 
-			this.textBox2.Location = new System.Drawing.Point(166, 49);
-			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(303, 22);
-			this.textBox2.TabIndex = 4;
+			this.addresstextBox2.Location = new System.Drawing.Point(166, 49);
+			this.addresstextBox2.Name = "addresstextBox2";
+			this.addresstextBox2.Size = new System.Drawing.Size(303, 22);
+			this.addresstextBox2.TabIndex = 4;
 			// 
-			// textBox3
+			// agetextBox3
 			// 
-			this.textBox3.Location = new System.Drawing.Point(166, 107);
-			this.textBox3.Name = "textBox3";
-			this.textBox3.Size = new System.Drawing.Size(303, 22);
-			this.textBox3.TabIndex = 4;
+			this.agetextBox3.Location = new System.Drawing.Point(166, 107);
+			this.agetextBox3.Name = "agetextBox3";
+			this.agetextBox3.Size = new System.Drawing.Size(303, 22);
+			this.agetextBox3.TabIndex = 4;
 			// 
-			// textBox4
+			// passporttextBox4
 			// 
-			this.textBox4.Location = new System.Drawing.Point(166, 135);
-			this.textBox4.Name = "textBox4";
-			this.textBox4.Size = new System.Drawing.Size(303, 22);
-			this.textBox4.TabIndex = 4;
+			this.passporttextBox4.Location = new System.Drawing.Point(166, 135);
+			this.passporttextBox4.Name = "passporttextBox4";
+			this.passporttextBox4.Size = new System.Drawing.Size(303, 22);
+			this.passporttextBox4.TabIndex = 4;
 			// 
-			// textBox5
+			// phonetextBox5
 			// 
-			this.textBox5.Location = new System.Drawing.Point(166, 164);
-			this.textBox5.Name = "textBox5";
-			this.textBox5.Size = new System.Drawing.Size(303, 22);
-			this.textBox5.TabIndex = 4;
+			this.phonetextBox5.Location = new System.Drawing.Point(166, 164);
+			this.phonetextBox5.Name = "phonetextBox5";
+			this.phonetextBox5.Size = new System.Drawing.Size(303, 22);
+			this.phonetextBox5.TabIndex = 4;
 			// 
 			// PositionsListBox1
 			// 
@@ -274,7 +274,7 @@
 		private System.Windows.Forms.RadioButton ChooseRadioButton1;
 		private System.Windows.Forms.RadioButton AddRadioButton2;
 		private System.Windows.Forms.GroupBox groupBox1;
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox fiotextBox1;
 		private System.Windows.Forms.ComboBox SexComboBox1;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.GroupBox groupBox2;
@@ -284,10 +284,10 @@
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.TextBox textBox5;
-		private System.Windows.Forms.TextBox textBox4;
-		private System.Windows.Forms.TextBox textBox3;
-		private System.Windows.Forms.TextBox textBox2;
+		private System.Windows.Forms.TextBox phonetextBox5;
+		private System.Windows.Forms.TextBox passporttextBox4;
+		private System.Windows.Forms.TextBox agetextBox3;
+		private System.Windows.Forms.TextBox addresstextBox2;
 		private System.Windows.Forms.Button OKbutton1;
 		private System.Windows.Forms.ListBox EmployeesListBox2;
 		private System.Windows.Forms.ListBox PositionsListBox1;

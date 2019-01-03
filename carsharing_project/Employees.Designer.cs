@@ -75,6 +75,7 @@
 			this.PositionsButton.TabIndex = 3;
 			this.PositionsButton.Text = "Должности";
 			this.PositionsButton.UseVisualStyleBackColor = true;
+			this.PositionsButton.Click += new System.EventHandler(this.PositionsButton_Click);
 			// 
 			// Employees
 			// 
