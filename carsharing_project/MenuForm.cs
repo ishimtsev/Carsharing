@@ -13,8 +13,8 @@ namespace carsharing_project
 {
 	public partial class MenuForm : Form
 	{
-		public static string str = "Server=localhost;Port=5432;User Id=postgres;Password=qwe123;Database=carsharing;";
-		public static NpgsqlConnection con = new NpgsqlConnection(str);
+		//public static string str = "Server=localhost;Port=5432;User Id=postgres;Password=qwe123;Database=carsharing;";
+		//public static NpgsqlConnection con = new NpgsqlConnection(str);
 
 		public MenuForm()
 		{
@@ -64,6 +64,19 @@ namespace carsharing_project
 			Cars form = new Cars();
 			form.FormClosed += (s, args) => Show();
 			form.Show();
+		}
+
+		private void RentalButton3_Click(object sender, EventArgs e)
+		{
+			Hide();
+			Rental form = new Rental();
+			form.FormClosed += (s, args) => Show();
+			form.Show();
+		}
+
+		private void textBox1_TextChanged(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

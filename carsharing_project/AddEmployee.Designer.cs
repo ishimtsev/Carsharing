@@ -31,23 +31,23 @@
 			this.ChooseRadioButton1 = new System.Windows.Forms.RadioButton();
 			this.AddRadioButton2 = new System.Windows.Forms.RadioButton();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.label1 = new System.Windows.Forms.Label();
-			this.SexComboBox1 = new System.Windows.Forms.ComboBox();
-			this.fiotextBox1 = new System.Windows.Forms.TextBox();
-			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.label2 = new System.Windows.Forms.Label();
-			this.label3 = new System.Windows.Forms.Label();
-			this.label4 = new System.Windows.Forms.Label();
-			this.label5 = new System.Windows.Forms.Label();
-			this.label6 = new System.Windows.Forms.Label();
-			this.label7 = new System.Windows.Forms.Label();
-			this.OKbutton1 = new System.Windows.Forms.Button();
-			this.addresstextBox2 = new System.Windows.Forms.TextBox();
-			this.agetextBox3 = new System.Windows.Forms.TextBox();
-			this.passporttextBox4 = new System.Windows.Forms.TextBox();
-			this.phonetextBox5 = new System.Windows.Forms.TextBox();
-			this.PositionsListBox1 = new System.Windows.Forms.ListBox();
 			this.EmployeesListBox2 = new System.Windows.Forms.ListBox();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
+			this.label5 = new System.Windows.Forms.Label();
+			this.label4 = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.label1 = new System.Windows.Forms.Label();
+			this.phonetextBox5 = new System.Windows.Forms.TextBox();
+			this.passporttextBox4 = new System.Windows.Forms.TextBox();
+			this.agetextBox3 = new System.Windows.Forms.TextBox();
+			this.addresstextBox2 = new System.Windows.Forms.TextBox();
+			this.fiotextBox1 = new System.Windows.Forms.TextBox();
+			this.SexComboBox1 = new System.Windows.Forms.ComboBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.OKbutton1 = new System.Windows.Forms.Button();
+			this.PositionsListBox1 = new System.Windows.Forms.ListBox();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
@@ -88,33 +88,14 @@
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Сотрудник";
 			// 
-			// label1
+			// EmployeesListBox2
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(6, 24);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(42, 17);
-			this.label1.TabIndex = 2;
-			this.label1.Text = "ФИО";
-			// 
-			// SexComboBox1
-			// 
-			this.SexComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.SexComboBox1.FormattingEnabled = true;
-			this.SexComboBox1.Items.AddRange(new object[] {
-            "Мужской",
-            "Женский"});
-			this.SexComboBox1.Location = new System.Drawing.Point(166, 77);
-			this.SexComboBox1.Name = "SexComboBox1";
-			this.SexComboBox1.Size = new System.Drawing.Size(303, 24);
-			this.SexComboBox1.TabIndex = 3;
-			// 
-			// fiotextBox1
-			// 
-			this.fiotextBox1.Location = new System.Drawing.Point(166, 21);
-			this.fiotextBox1.Name = "fiotextBox1";
-			this.fiotextBox1.Size = new System.Drawing.Size(303, 22);
-			this.fiotextBox1.TabIndex = 4;
+			this.EmployeesListBox2.FormattingEnabled = true;
+			this.EmployeesListBox2.ItemHeight = 16;
+			this.EmployeesListBox2.Location = new System.Drawing.Point(6, 48);
+			this.EmployeesListBox2.Name = "EmployeesListBox2";
+			this.EmployeesListBox2.Size = new System.Drawing.Size(271, 340);
+			this.EmployeesListBox2.TabIndex = 6;
 			// 
 			// groupBox2
 			// 
@@ -136,43 +117,16 @@
 			this.groupBox2.Size = new System.Drawing.Size(475, 200);
 			this.groupBox2.TabIndex = 5;
 			this.groupBox2.TabStop = false;
-			this.groupBox2.Text = "Новый сотрудник";
+			this.groupBox2.Text = "Сотрудник";
 			// 
-			// label2
+			// label7
 			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(922, 9);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(81, 17);
-			this.label2.TabIndex = 2;
-			this.label2.Text = "Должность";
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(6, 52);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(48, 17);
-			this.label3.TabIndex = 2;
-			this.label3.Text = "Адрес";
-			// 
-			// label4
-			// 
-			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(6, 80);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(34, 17);
-			this.label4.TabIndex = 2;
-			this.label4.Text = "Пол";
-			// 
-			// label5
-			// 
-			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(6, 110);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(62, 17);
-			this.label5.TabIndex = 2;
-			this.label5.Text = "Возраст";
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(6, 167);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(68, 17);
+			this.label7.TabIndex = 2;
+			this.label7.Text = "Телефон";
 			// 
 			// label6
 			// 
@@ -183,14 +137,97 @@
 			this.label6.TabIndex = 2;
 			this.label6.Text = "Паспортные данные";
 			// 
-			// label7
+			// label5
 			// 
-			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(6, 167);
-			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(68, 17);
-			this.label7.TabIndex = 2;
-			this.label7.Text = "Телефон";
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(6, 110);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(62, 17);
+			this.label5.TabIndex = 2;
+			this.label5.Text = "Возраст";
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(6, 80);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(34, 17);
+			this.label4.TabIndex = 2;
+			this.label4.Text = "Пол";
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(6, 52);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(48, 17);
+			this.label3.TabIndex = 2;
+			this.label3.Text = "Адрес";
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(6, 24);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(42, 17);
+			this.label1.TabIndex = 2;
+			this.label1.Text = "ФИО";
+			// 
+			// phonetextBox5
+			// 
+			this.phonetextBox5.Location = new System.Drawing.Point(166, 164);
+			this.phonetextBox5.Name = "phonetextBox5";
+			this.phonetextBox5.Size = new System.Drawing.Size(303, 22);
+			this.phonetextBox5.TabIndex = 4;
+			// 
+			// passporttextBox4
+			// 
+			this.passporttextBox4.Location = new System.Drawing.Point(166, 135);
+			this.passporttextBox4.Name = "passporttextBox4";
+			this.passporttextBox4.Size = new System.Drawing.Size(303, 22);
+			this.passporttextBox4.TabIndex = 4;
+			// 
+			// agetextBox3
+			// 
+			this.agetextBox3.Location = new System.Drawing.Point(166, 107);
+			this.agetextBox3.Name = "agetextBox3";
+			this.agetextBox3.Size = new System.Drawing.Size(303, 22);
+			this.agetextBox3.TabIndex = 4;
+			// 
+			// addresstextBox2
+			// 
+			this.addresstextBox2.Location = new System.Drawing.Point(166, 49);
+			this.addresstextBox2.Name = "addresstextBox2";
+			this.addresstextBox2.Size = new System.Drawing.Size(303, 22);
+			this.addresstextBox2.TabIndex = 4;
+			// 
+			// fiotextBox1
+			// 
+			this.fiotextBox1.Location = new System.Drawing.Point(166, 21);
+			this.fiotextBox1.Name = "fiotextBox1";
+			this.fiotextBox1.Size = new System.Drawing.Size(303, 22);
+			this.fiotextBox1.TabIndex = 4;
+			// 
+			// SexComboBox1
+			// 
+			this.SexComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.SexComboBox1.FormattingEnabled = true;
+			this.SexComboBox1.Items.AddRange(new object[] {
+            "Мужской",
+            "Женский"});
+			this.SexComboBox1.Location = new System.Drawing.Point(166, 77);
+			this.SexComboBox1.Name = "SexComboBox1";
+			this.SexComboBox1.Size = new System.Drawing.Size(303, 24);
+			this.SexComboBox1.TabIndex = 3;
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(922, 9);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(81, 17);
+			this.label2.TabIndex = 2;
+			this.label2.Text = "Должность";
 			// 
 			// OKbutton1
 			// 
@@ -202,34 +239,6 @@
 			this.OKbutton1.UseVisualStyleBackColor = true;
 			this.OKbutton1.Click += new System.EventHandler(this.OKbutton1_Click);
 			// 
-			// addresstextBox2
-			// 
-			this.addresstextBox2.Location = new System.Drawing.Point(166, 49);
-			this.addresstextBox2.Name = "addresstextBox2";
-			this.addresstextBox2.Size = new System.Drawing.Size(303, 22);
-			this.addresstextBox2.TabIndex = 4;
-			// 
-			// agetextBox3
-			// 
-			this.agetextBox3.Location = new System.Drawing.Point(166, 107);
-			this.agetextBox3.Name = "agetextBox3";
-			this.agetextBox3.Size = new System.Drawing.Size(303, 22);
-			this.agetextBox3.TabIndex = 4;
-			// 
-			// passporttextBox4
-			// 
-			this.passporttextBox4.Location = new System.Drawing.Point(166, 135);
-			this.passporttextBox4.Name = "passporttextBox4";
-			this.passporttextBox4.Size = new System.Drawing.Size(303, 22);
-			this.passporttextBox4.TabIndex = 4;
-			// 
-			// phonetextBox5
-			// 
-			this.phonetextBox5.Location = new System.Drawing.Point(166, 164);
-			this.phonetextBox5.Name = "phonetextBox5";
-			this.phonetextBox5.Size = new System.Drawing.Size(303, 22);
-			this.phonetextBox5.TabIndex = 4;
-			// 
 			// PositionsListBox1
 			// 
 			this.PositionsListBox1.FormattingEnabled = true;
@@ -238,15 +247,6 @@
 			this.PositionsListBox1.Name = "PositionsListBox1";
 			this.PositionsListBox1.Size = new System.Drawing.Size(267, 372);
 			this.PositionsListBox1.TabIndex = 6;
-			// 
-			// EmployeesListBox2
-			// 
-			this.EmployeesListBox2.FormattingEnabled = true;
-			this.EmployeesListBox2.ItemHeight = 16;
-			this.EmployeesListBox2.Location = new System.Drawing.Point(6, 48);
-			this.EmployeesListBox2.Name = "EmployeesListBox2";
-			this.EmployeesListBox2.Size = new System.Drawing.Size(271, 340);
-			this.EmployeesListBox2.TabIndex = 6;
 			// 
 			// AddEmployee
 			// 

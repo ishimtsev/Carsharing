@@ -75,6 +75,12 @@
     <Compile Include="AddPosition.Designer.cs">
       <DependentUpon>AddPosition.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddRental.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddRental.Designer.cs">
+      <DependentUpon>AddRental.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cars.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +120,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rental.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Rental.Designer.cs">
+      <DependentUpon>Rental.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AddCar.resx">
       <DependentUpon>AddCar.cs</DependentUpon>
     </EmbeddedResource>
@@ -122,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddPosition.resx">
       <DependentUpon>AddPosition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddRental.resx">
+      <DependentUpon>AddRental.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Cars.resx">
       <DependentUpon>Cars.cs</DependentUpon>
@@ -150,6 +165,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Rental.resx">
+      <DependentUpon>Rental.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
