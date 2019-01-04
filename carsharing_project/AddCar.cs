@@ -20,6 +20,8 @@ namespace carsharing_project
         public AddCar()
         {
             InitializeComponent();
+            carpriceTB.Text = "0";
+            mileageTB.Text = "0";
         }
 
         public AddCar(string idd, string name, string reg, string body, string engine, string prod, string mileage, string cPrice, string dPrice, string maint, string spec)
@@ -67,14 +69,10 @@ namespace carsharing_project
                     throw new Exception("Цена автомобиля: не более 45 символов.");
                 if (carpriceTB.Text == string.Empty)
                     throw new Exception("Не задана цена автомобиля.");
-                if (Regex.IsMatch(carpriceTB.Text, @"^\d+$"))
-                    throw new Exception("Цена автомобиля: введены недопустимые символы.");
                 if (daypriceTB.Text.Length > 45)
                     throw new Exception("Стоимость проката: не более 45 символов.");
                 if (daypriceTB.Text == string.Empty)
                     throw new Exception("Не указана цена проката.");
-                if (Regex.IsMatch(daypriceTB.Text, @"^\d+$"))
-                    throw new Exception("Цена проката: введены недопустимые символы.");
                 if (specTB.Text.Length > 300)
                     throw new Exception("Особенности: не более 300 символов.");
 
@@ -126,6 +124,13 @@ namespace carsharing_project
                 }
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsDigit(e.KeyChar)) return;
+            if (Char.IsControl(e.KeyChar)) return;
+            e.Handled = true;
         }
     }
 }

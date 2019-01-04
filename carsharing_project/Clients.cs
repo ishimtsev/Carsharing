@@ -20,7 +20,7 @@ namespace carsharing_project
 
         private void Clients_Load(object sender, EventArgs e)
         {
-            BindData();
+            //BindData();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -73,8 +73,8 @@ namespace carsharing_project
 		{
 			try
 			{
-				using (NpgsqlConnection cn = MenuForm.con)
-				{
+                using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
+                {
 					using (NpgsqlCommand command = new NpgsqlCommand("DELETE FROM client_table WHERE (cli_id = '" + dataGridView1.CurrentRow.Cells[0].Value.ToString() + "')", cn))
 					{
 						cn.Open();

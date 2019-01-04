@@ -73,12 +73,31 @@ namespace carsharing_project
 			form.Show();
 		}
 
-		private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
-		{
+        private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
+                {
+                    using (NpgsqlCommand command = new NpgsqlCommand("DELETE FROM \"car_table\" WHERE (\"car_id\" = '" + dataGridView1.CurrentRow.Cells[0].Value.ToString() + "')", cn))
+                    {
+                        cn.Open();
+                        command.ExecuteNonQuery();
+                        cn.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.StartsWith("Cannot delete or update a parent row: a foreign key constraint fails"))
+                    MessageBox.Show("Нельзя удалить автомобиль, если у него имеются прокаты.");
+                else
+                    MessageBox.Show(ex.Message);
+            }
+            BindData();
+        }
 
-		}
-
-		private void addButton_Click(object sender, EventArgs e)
+        private void addButton_Click(object sender, EventArgs e)
 		{
 			AddCar form = new AddCar();
 			form.FormClosed += (s, args) => BindData();

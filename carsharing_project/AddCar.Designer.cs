@@ -177,6 +177,7 @@
             this.carpriceTB.Name = "carpriceTB";
             this.carpriceTB.Size = new System.Drawing.Size(306, 26);
             this.carpriceTB.TabIndex = 15;
+            this.carpriceTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPress);
             // 
             // daypriceTB
             // 
@@ -184,6 +185,7 @@
             this.daypriceTB.Name = "daypriceTB";
             this.daypriceTB.Size = new System.Drawing.Size(306, 26);
             this.daypriceTB.TabIndex = 16;
+            this.daypriceTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPress);
             // 
             // mileageTB
             // 
@@ -191,6 +193,7 @@
             this.mileageTB.Name = "mileageTB";
             this.mileageTB.Size = new System.Drawing.Size(306, 26);
             this.mileageTB.TabIndex = 18;
+            this.mileageTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPress);
             // 
             // maintenanceDTP
             // 
@@ -214,6 +217,7 @@
             this.OKb.TabIndex = 24;
             this.OKb.Text = "Принять";
             this.OKb.UseVisualStyleBackColor = true;
+            this.OKb.Click += new System.EventHandler(this.OKb_Click);
             // 
             // prodDTP
             // 
