@@ -18,13 +18,6 @@ namespace carsharing_project
             InitializeComponent();
         }
 
-        private void addButton_Click(object sender, EventArgs e)
-        {
-            AddCar form = new AddCar();
-            form.FormClosed += (s, args) => BindData();
-            form.Show();
-        }
-
         private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right && e.RowIndex >= 0 && e.ColumnIndex >= 0)
@@ -34,16 +27,6 @@ namespace carsharing_project
                 dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 contextMenuStrip1.Show(MousePosition);
             }
-        }
-
-        private void EditToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AddCar form = new AddCar(dataGridView1.CurrentRow.Cells[0].Value.ToString(), dataGridView1.CurrentRow.Cells[1].Value.ToString(),
-                dataGridView1.CurrentRow.Cells[2].Value.ToString(), dataGridView1.CurrentRow.Cells[3].Value.ToString(), dataGridView1.CurrentRow.Cells[4].Value.ToString(),
-                dataGridView1.CurrentRow.Cells[5].Value.ToString(), dataGridView1.CurrentRow.Cells[6].Value.ToString(), dataGridView1.CurrentRow.Cells[7].Value.ToString(),
-                dataGridView1.CurrentRow.Cells[8].Value.ToString(), dataGridView1.CurrentRow.Cells[9].Value.ToString(), dataGridView1.CurrentRow.Cells[10].Value.ToString());
-            form.FormClosed += (s, args) => BindData();
-            form.Show();
         }
 
         private void BindData()
@@ -79,5 +62,32 @@ namespace carsharing_project
         {
             BindData();
         }
-    }
+
+		private void EditToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			AddCar form = new AddCar(dataGridView1.CurrentRow.Cells[0].Value.ToString(), dataGridView1.CurrentRow.Cells[1].Value.ToString(),
+			   dataGridView1.CurrentRow.Cells[2].Value.ToString(), dataGridView1.CurrentRow.Cells[3].Value.ToString(), dataGridView1.CurrentRow.Cells[4].Value.ToString(),
+			   dataGridView1.CurrentRow.Cells[5].Value.ToString(), dataGridView1.CurrentRow.Cells[6].Value.ToString(), dataGridView1.CurrentRow.Cells[7].Value.ToString(),
+			   dataGridView1.CurrentRow.Cells[8].Value.ToString(), dataGridView1.CurrentRow.Cells[9].Value.ToString(), dataGridView1.CurrentRow.Cells[10].Value.ToString());
+			form.FormClosed += (s, args) => BindData();
+			form.Show();
+		}
+
+		private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void addButton_Click(object sender, EventArgs e)
+		{
+			AddCar form = new AddCar();
+			form.FormClosed += (s, args) => BindData();
+			form.Show();
+		}
+
+		private void Cars_Load(object sender, EventArgs e)
+		{
+			BindData();
+		}
+	}
 }
