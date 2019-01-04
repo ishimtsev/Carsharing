@@ -20,17 +20,14 @@ namespace carsharing_project
         public AddCar()
         {
             InitializeComponent();
-            carpriceTB.Text = "0";
-            mileageTB.Text = "0";
         }
 
-        public AddCar(string idd, string name, string reg, string body, string engine, string prod, string mileage, string cPrice, string dPrice, string maint, string spec)
+        public AddCar(string idd, string name, string reg, string engine, string prod, string mileage, string cPrice, string dPrice, string maint, string spec)
         {
             InitializeComponent();
             id = idd;
             nameTB.Text = name;
             regTB.Text = reg;
-            kuzTB.Text = body;
             engTB.Text = engine;
             prodDTP.Text = prod;
             mileageTB.Text = mileage;
@@ -53,10 +50,6 @@ namespace carsharing_project
                     throw new Exception("Регистрационный номер: не более  символов.");
                 if (regTB.Text == string.Empty)
                     throw new Exception("Не задан регистрационный номер.");
-                if (kuzTB.Text.Length > 45)
-                    throw new Exception("Номер кузова: не более  символов.");
-                if (kuzTB.Text == string.Empty)
-                    throw new Exception("Не задан номер кузова.");
                 if (engTB.Text.Length > 45)
                     throw new Exception("Номер двигателя: не более  знаков.");
                 if (engTB.Text == string.Empty)
@@ -91,10 +84,12 @@ namespace carsharing_project
                     }
                     else
                     {
+                        string newprod = prodDTP.Value.Year + "-" + prodDTP.Value.Month + "-" + prodDTP.Value.Day;
+                        string newmain = maintenanceDTP.Value.Year + "-" + maintenanceDTP.Value.Month + "-" + maintenanceDTP.Value.Day;
                         if (EditMode)
                         {
-                            using (NpgsqlCommand command = new NpgsqlCommand($"UPDATE \"car_table\" SET model = '" +
-                             nameTB.Text + "', \"reg_num\" = '" + regTB.Text + "', \"body_num\" = '" + kuzTB.Text + "', \"engine_num\" = '" + engTB.Text + "', \"prod_year\" = '" + prodDTP.Text + "', mileage = '" + mileageTB.Text + "', \"car_price\" = '" + carpriceTB.Text + "', \"day_price\" = '" + daypriceTB.Text + "', maintenance = '" + maintenanceDTP.Text + "', specials = '" + specTB.Text + "', returned = '1' WHERE (\"car_id\" = '" + id + "')", cn))
+                            using (NpgsqlCommand command = new NpgsqlCommand($"UPDATE \"car_table\" SET \"name\" = '" +
+                             nameTB.Text + "', \"reg_num\" = '" + regTB.Text +"', \"engine_num\" = '" + engTB.Text + "', \"prod_year\" = '" + newprod + "', mileage = '" + mileageTB.Text + "', \"car_price\" = '" + carpriceTB.Text + "', \"day_price\" = '" + daypriceTB.Text + "', maintenance = '" + newmain + "', specials = '" + specTB.Text + "', returned = '1' WHERE (\"car_id\" = '" + id + "')", cn))
                             {
                                 command.ExecuteNonQuery();
                                 cn.Close();
@@ -103,9 +98,9 @@ namespace carsharing_project
                         }
                         else
                         {
-                            using (NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO \"car_table\" (model, \"reg_num\", \"body_num\", \"engine_num\", \"prod_year\", mileage, \"car_price\", \"day_price\", maintenance, specials, returned) " +
+                            using (NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO \"car_table\" (\"name\", \"reg_num\", \"engine_num\", \"prod_year\", mileage, \"car_price\", \"day_price\", maintenance, specials, returned) " +
                             //"VALUES ('" + fioTextBox.Text + "', '" + sexBox.Text + "', '" + birthPicker.Text + "', '" + addressTextBox.Text + "', '" + phoneTextBox.Text + "', '" + passTextBox.Text + "')"
-                            "VALUES ('" + nameTB.Text + "', '" + regTB.Text + "', '" + kuzTB.Text + "', '" + engTB.Text + "', '" + prodDTP.Text + "', '" + mileageTB.Text + "', '" + carpriceTB.Text + "', '" + daypriceTB.Text + "', '" + maintenanceDTP.Text + "', '" + specTB.Text + "', '1')", cn))
+                            "VALUES ('" + nameTB.Text + "', '" + regTB.Text + "', '" + engTB.Text + "', '" + newprod + "', '" + mileageTB.Text + "', '" + carpriceTB.Text + "', '" + daypriceTB.Text + "', '" + newmain + "', '" + specTB.Text + "', '1')", cn))
                             {
                                 command.ExecuteNonQuery();
                                 cn.Close();

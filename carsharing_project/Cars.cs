@@ -39,16 +39,14 @@ namespace carsharing_project
                 string parameters = string.Empty;
                 if (searchString != string.Empty)
                 {
-                    parameters = " WHERE \"model_id\" LIKE '%" + searchString + "%' OR \"reg_num\" LIKE '%" + searchString + "%' OR \"bodu_num\" LIKE '%" + searchString + "%' OR \"engine_num\" LIKE '%" + searchString + "%' \"OR prod_year\" LIKE '%" + searchString + "%' OR mileage LIKE '%" + searchString + "%' OR \"car_price\" LIKE '%" + searchString + "%' OR \"day_price\" LIKE '%" + searchString + "%' OR maintenance LIKE '%" + searchString + "%' OR \"employee_id\" LIKE '%" + searchString + "%' OR specials LIKE '%" + searchString + "%' OR returned LIKE '%" + searchString + "%'";
+                    parameters = " WHERE \"name\" LIKE '%" + searchString + "%' OR \"reg_num\" LIKE '%" + searchString + "%' OR \"engine_num\" LIKE '%" + searchString + "%' \"OR prod_year\" LIKE '%" + searchString + "%' OR mileage LIKE '%" + searchString + "%' OR \"car_price\" LIKE '%" + searchString + "%' OR \"day_price\" LIKE '%" + searchString + "%' OR maintenance LIKE '%" + searchString + "%' OR \"employee_id\" LIKE '%" + searchString + "%' OR specials LIKE '%" + searchString + "%' OR returned LIKE '%" + searchString + "%'";
                 }
-                NpgsqlCommand cmd = new NpgsqlCommand("select \"car_id\" as ID, model as Название, \"reg_num\" as Номер, \"body_num\" as \"Номер кузова\", \"engine_num\" as \"Номер мотора\", \"prod_year\" as \"Дата произодства\", mileage as Пробег, \"car_price\" as Стоимость, \"day_price\" as \"Цена проката\", maintenance as \"Последнее техобслуживание\", specials as Особенности, (case when returned IS false then 'Нет' else 'Да' end) as \"На стоянке\" from client_table" + parameters, cn);
+                NpgsqlCommand cmd = new NpgsqlCommand("select \"car_id\" as ID, \"name\" as \"Название\", \"reg_num\" as \"Номер\", \"engine_num\" as \"Номер мотора\", \"prod_year\" as \"Дата произодства\", mileage as Пробег, \"car_price\" as Стоимость, \"day_price\" as \"Цена проката\", maintenance as \"Последнее техобслуживание\", specials as Особенности, (case when returned IS false then 'Нет' else 'Да' end) as \"На стоянке\" from car_table" + parameters, cn);
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 DataTable dt = new DataTable();
                 dt.Load(reader);
                 dataGridView1.DataSource = dt;
                 dataGridView1.Columns[0].Visible = false;
-                dataGridView1.Columns[1].Visible = false;
-                dataGridView1.Columns[2].Visible = false;
                 cn.Close();
             }
         }
@@ -65,13 +63,13 @@ namespace carsharing_project
 
 		private void EditToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			AddCar form = new AddCar(dataGridView1.CurrentRow.Cells[0].Value.ToString(), dataGridView1.CurrentRow.Cells[1].Value.ToString(),
-			   dataGridView1.CurrentRow.Cells[2].Value.ToString(), dataGridView1.CurrentRow.Cells[3].Value.ToString(), dataGridView1.CurrentRow.Cells[4].Value.ToString(),
-			   dataGridView1.CurrentRow.Cells[5].Value.ToString(), dataGridView1.CurrentRow.Cells[6].Value.ToString(), dataGridView1.CurrentRow.Cells[7].Value.ToString(),
-			   dataGridView1.CurrentRow.Cells[8].Value.ToString(), dataGridView1.CurrentRow.Cells[9].Value.ToString(), dataGridView1.CurrentRow.Cells[10].Value.ToString());
-			form.FormClosed += (s, args) => BindData();
-			form.Show();
-		}
+            AddCar form = new AddCar(dataGridView1.CurrentRow.Cells[0].Value.ToString(), dataGridView1.CurrentRow.Cells[1].Value.ToString(),
+               dataGridView1.CurrentRow.Cells[2].Value.ToString(), dataGridView1.CurrentRow.Cells[3].Value.ToString(), dataGridView1.CurrentRow.Cells[4].Value.ToString(),
+               dataGridView1.CurrentRow.Cells[5].Value.ToString(), dataGridView1.CurrentRow.Cells[6].Value.ToString(), dataGridView1.CurrentRow.Cells[7].Value.ToString(),
+               dataGridView1.CurrentRow.Cells[8].Value.ToString(), dataGridView1.CurrentRow.Cells[9].Value.ToString());
+            form.FormClosed += (s, args) => BindData();
+            form.Show();
+        }
 
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {

@@ -44,7 +44,7 @@ namespace carsharing_project
                 if (passTextBox.Text == string.Empty)
                     throw new Exception("Не заданы паспортные данные.");
 
-                using (NpgsqlConnection cn = MenuForm.con)
+                using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
                 {
                     cn.Open();
                     string parameters = " WHERE passport LIKE '" + passTextBox.Text + "'";
@@ -55,14 +55,18 @@ namespace carsharing_project
                     if (dt.Rows.Count > 0 && !EditMode)
                     {
                         cn.Close();
-                        throw new Exception("Такой заказчик уже добавлен.");
+                        throw new Exception("Такой клиент уже добавлен.");
                     }
                     else
                     {
+                        int sex;
+                        if (sexBox.Text == "Мужской") sex = 0;
+                        else sex = 1;
+                        string newbirth = birthPicker.Value.Year + "-" + birthPicker.Value.Month + "-" + birthPicker.Value.Day;
                         if (EditMode)
                         {
                             using (NpgsqlCommand command = new NpgsqlCommand($"UPDATE client_table SET fio = '" +
-                             fioTextBox.Text + "', sex = '" + sexBox.Text + "', birth = '" + birthPicker.Text + "', \"address\" = '" + addressTextBox.Text + "', phone = '" + phoneTextBox.Text + "', passport = '" + passTextBox.Text + "' WHERE (cli_id = '" + id + "')", cn))
+                             fioTextBox.Text + "', sex = '" + sex + "', birth = '" + newbirth + "', \"address\" = '" + addressTextBox.Text + "', phone = '" + phoneTextBox.Text + "', passport = '" + passTextBox.Text + "' WHERE (cli_id = '" + id + "')", cn))
                             {
                                 command.ExecuteNonQuery();
                                 cn.Close();
@@ -72,7 +76,7 @@ namespace carsharing_project
                         else
                         {
                             using (NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO client_table (fio, sex, birth, address, phone, passport) " +
-                            "VALUES ('" + fioTextBox.Text + "', '" + sexBox.Text + "', '" + birthPicker.Text + "', '" + addressTextBox.Text + "', '" + phoneTextBox.Text + "', '" + passTextBox.Text + "')", cn))
+                            "VALUES ('" + fioTextBox.Text + "', '" + sex + "', '" + newbirth + "', '" + addressTextBox.Text + "', '" + phoneTextBox.Text + "', '" + passTextBox.Text + "')", cn))
                             {
                                 command.ExecuteNonQuery();
                                 cn.Close();

@@ -16,5 +16,11 @@ namespace carsharing_project
 		{
 			InitializeComponent();
 		}
-	}
+
+
+        private void AddPosition_Load(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

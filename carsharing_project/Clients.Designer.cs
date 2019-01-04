@@ -48,14 +48,14 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 87);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 181);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 28;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1232, 667);
+            this.dataGridView1.Size = new System.Drawing.Size(1232, 573);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDown_1);
             // 
@@ -106,7 +106,7 @@
             this.SearchButton2.Location = new System.Drawing.Point(280, 20);
             this.SearchButton2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SearchButton2.Name = "SearchButton2";
-            this.SearchButton2.Size = new System.Drawing.Size(132, 28);
+            this.SearchButton2.Size = new System.Drawing.Size(132, 39);
             this.SearchButton2.TabIndex = 3;
             this.SearchButton2.Text = "Поиск";
             this.SearchButton2.UseVisualStyleBackColor = true;

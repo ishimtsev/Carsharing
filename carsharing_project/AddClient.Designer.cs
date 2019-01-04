@@ -144,8 +144,8 @@
 			// 
 			this.sexBox.FormattingEnabled = true;
 			this.sexBox.Items.AddRange(new object[] {
-            "М",
-            "Ж"});
+            "Мужской",
+            "Женский"});
 			this.sexBox.Location = new System.Drawing.Point(245, 49);
 			this.sexBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.sexBox.Name = "sexBox";

@@ -20,15 +20,12 @@ namespace carsharing_project
 
         private void Clients_Load(object sender, EventArgs e)
         {
-            //BindData();
+            BindData();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text != string.Empty)
-            {
                 BindData();
-            }
         }
 
         private void BindData()
@@ -41,11 +38,11 @@ namespace carsharing_project
 				string parameters = string.Empty;
 				if (searchString != string.Empty)
 				{
-					parameters = " WHERE fio LIKE '%" + searchString + "%' OR sex LIKE '%" + searchString + "%' OR birth LIKE '%" + searchString + "%' OR address LIKE '%" + searchString + "%' OR phone LIKE '%" + searchString + "%' OR passport LIKE '%" + searchString + "%'";
+					parameters = " WHERE fio LIKE '%" + searchString + "%' OR address LIKE '%" + searchString + "%' OR phone LIKE '%" + searchString + "%' OR passport LIKE '%" + searchString + "%'";
 				}
 
-				NpgsqlCommand cmd = new NpgsqlCommand("select cli_id as ID, fio as ФИО, (case when sex IS false then 'Мужской' else 'Женский' end) as Пол, birth as \"Дата рождения\", address as Адрес, phone as Телефон, passport as \"Паспортные данные\" from client_table" + parameters, cn);
-				NpgsqlDataReader reader = cmd.ExecuteReader();
+                NpgsqlCommand cmd = new NpgsqlCommand("select \"cli_id\" as ID, fio as ФИО, (case when sex IS false then 'Мужской' else 'Женский' end) as Пол, birth as \"Дата рождения\", address as Адрес, phone as Телефон, passport as \"Паспортные данные\" from client_table" + parameters, cn);
+                NpgsqlDataReader reader = cmd.ExecuteReader();
 				DataTable dt = new DataTable();
 				dt.Load(reader);
 				dataGridView1.DataSource = dt;
@@ -59,8 +56,12 @@ namespace carsharing_project
             Hide();
             AddClient form = new AddClient();
             form.fioTextBox.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-            form.addressTextBox.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
-            form.phoneTextBox.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+            form.sexBox.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+            form.birthPicker.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+            form.addressTextBox.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
+            form.phoneTextBox.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
+            form.passTextBox.Text = dataGridView1.CurrentRow.Cells[6].Value.ToString();
+
 
             form.EditMode = true;
             form.id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
