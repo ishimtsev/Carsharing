@@ -52,6 +52,7 @@ namespace carsharing_project
 			form.FormClosed += (s, args) => BindData();
 			form.Show();
 		}
+
 		private void BindData()
 		{
 			dataGridView1.ClearSelection();

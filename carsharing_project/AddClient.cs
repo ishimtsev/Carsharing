@@ -61,8 +61,8 @@ namespace carsharing_project
                     {
                         if (EditMode)
                         {
-                            using (NpgsqlCommand command = new NpgsqlCommand($"UPDATE `client_table` SET `fio` = '" +
-                             fioTextBox.Text + "', `sex` = '" + sexBox.Text + "', `birth` = '" + birthPicker.Text + "', `address` = '" + addressTextBox.Text + "', `phone` = '" + phoneTextBox.Text + "', `passport` = '" + passTextBox.Text + "' WHERE (`cli_id` = '" + id + "')", cn))
+                            using (NpgsqlCommand command = new NpgsqlCommand($"UPDATE client_table SET fio = '" +
+                             fioTextBox.Text + "', sex = '" + sexBox.Text + "', birth = '" + birthPicker.Text + "', \"address\" = '" + addressTextBox.Text + "', phone = '" + phoneTextBox.Text + "', passport = '" + passTextBox.Text + "' WHERE (cli_id = '" + id + "')", cn))
                             {
                                 command.ExecuteNonQuery();
                                 cn.Close();

@@ -23,7 +23,7 @@ namespace carsharing_project
             BindData();
         }
 
-        private void button2_Click(object sender, EventArgs e) //Поиск
+        private void button2_Click(object sender, EventArgs e)
         {
             if (textBox1.Text != string.Empty)
             {
@@ -56,18 +56,16 @@ namespace carsharing_project
 
 		private void EditToolStripMenuItem_Click_1(object sender, EventArgs e)
 		{
-			//Hide();
-			AddClient form = new AddClient();
-			//form.fioTextBox.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-			//form.addressTextBox.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
-			//form.phoneTextBox.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+            Hide();
+            AddClient form = new AddClient();
+            form.fioTextBox.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+            form.addressTextBox.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+            form.phoneTextBox.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
 
-			////пол, дата рождения, паспорт
+            form.EditMode = true;
+            form.id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
 
-			//form.EditMode = true;
-			//form.id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-
-			form.FormClosed += (s, args) => BindData();
+            form.FormClosed += (s, args) => BindData();
 			form.Show();
 		}
 
