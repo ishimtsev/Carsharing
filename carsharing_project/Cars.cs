@@ -43,16 +43,6 @@ namespace carsharing_project
             }
         }
 
-        private void EditToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AddCar form = new AddCar(dataGridView1.CurrentRow.Cells[0].Value.ToString(), dataGridView1.CurrentRow.Cells[1].Value.ToString(),
-                dataGridView1.CurrentRow.Cells[2].Value.ToString(), dataGridView1.CurrentRow.Cells[3].Value.ToString(), dataGridView1.CurrentRow.Cells[4].Value.ToString(),
-                dataGridView1.CurrentRow.Cells[5].Value.ToString(), dataGridView1.CurrentRow.Cells[6].Value.ToString(), dataGridView1.CurrentRow.Cells[7].Value.ToString(),
-                dataGridView1.CurrentRow.Cells[8].Value.ToString());
-            form.FormClosed += (s, args) => BindData();
-            form.Show();
-        }
-
         private void BindData()
         {
             dataGridView1.ClearSelection();
@@ -88,5 +78,20 @@ namespace carsharing_project
         {
             BindData();
         }
-    }
+
+		private void EditToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			//AddCar form = new AddCar(dataGridView1.CurrentRow.Cells[0].Value.ToString(), dataGridView1.CurrentRow.Cells[1].Value.ToString(),
+			//	dataGridView1.CurrentRow.Cells[2].Value.ToString(), dataGridView1.CurrentRow.Cells[3].Value.ToString(), dataGridView1.CurrentRow.Cells[4].Value.ToString(),
+			//	dataGridView1.CurrentRow.Cells[5].Value.ToString(), dataGridView1.CurrentRow.Cells[6].Value.ToString(), dataGridView1.CurrentRow.Cells[7].Value.ToString(),
+			//	dataGridView1.CurrentRow.Cells[8].Value.ToString());
+			//form.FormClosed += (s, args) => BindData();
+			//form.Show();
+		}
+
+		private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+
+		}
+	}
 }
