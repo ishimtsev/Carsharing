@@ -32,7 +32,6 @@
             this.searchButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
             this.searchTextBox = new System.Windows.Forms.TextBox();
-            this.modelButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -41,6 +40,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 85);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 28;
             this.dataGridView1.Size = new System.Drawing.Size(999, 512);
             this.dataGridView1.TabIndex = 0;
@@ -70,21 +70,11 @@
             this.searchTextBox.Size = new System.Drawing.Size(219, 26);
             this.searchTextBox.TabIndex = 2;
             // 
-            // modelButton
-            // 
-            this.modelButton.Location = new System.Drawing.Point(756, 13);
-            this.modelButton.Name = "modelButton";
-            this.modelButton.Size = new System.Drawing.Size(119, 67);
-            this.modelButton.TabIndex = 3;
-            this.modelButton.Text = "Модели";
-            this.modelButton.UseVisualStyleBackColor = true;
-            // 
             // Cars
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1023, 609);
-            this.Controls.Add(this.modelButton);
             this.Controls.Add(this.searchTextBox);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.searchButton);
@@ -103,6 +93,5 @@
         private System.Windows.Forms.Button searchButton;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.TextBox searchTextBox;
-        private System.Windows.Forms.Button modelButton;
     }
 }
