@@ -25,13 +25,6 @@ namespace carsharing_project
             form.Show();
         }
 
-        private void modelButton_Click(object sender, EventArgs e)
-        {
-            Positions form = new Positions();
-            form.FormClosed += (s, args) => BindData();
-            form.Show();
-        }
-
         private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right && e.RowIndex >= 0 && e.ColumnIndex >= 0)
@@ -41,6 +34,16 @@ namespace carsharing_project
                 dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 contextMenuStrip1.Show(MousePosition);
             }
+        }
+
+        private void EditToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddCar form = new AddCar(dataGridView1.CurrentRow.Cells[0].Value.ToString(), dataGridView1.CurrentRow.Cells[1].Value.ToString(),
+                dataGridView1.CurrentRow.Cells[2].Value.ToString(), dataGridView1.CurrentRow.Cells[3].Value.ToString(), dataGridView1.CurrentRow.Cells[4].Value.ToString(),
+                dataGridView1.CurrentRow.Cells[5].Value.ToString(), dataGridView1.CurrentRow.Cells[6].Value.ToString(), dataGridView1.CurrentRow.Cells[7].Value.ToString(),
+                dataGridView1.CurrentRow.Cells[8].Value.ToString(), dataGridView1.CurrentRow.Cells[9].Value.ToString(), dataGridView1.CurrentRow.Cells[10].Value.ToString());
+            form.FormClosed += (s, args) => BindData();
+            form.Show();
         }
 
         private void BindData()
@@ -55,9 +58,7 @@ namespace carsharing_project
                 {
                     parameters = " WHERE \"model_id\" LIKE '%" + searchString + "%' OR \"reg_num\" LIKE '%" + searchString + "%' OR \"bodu_num\" LIKE '%" + searchString + "%' OR \"engine_num\" LIKE '%" + searchString + "%' \"OR prod_year\" LIKE '%" + searchString + "%' OR mileage LIKE '%" + searchString + "%' OR \"car_price\" LIKE '%" + searchString + "%' OR \"day_price\" LIKE '%" + searchString + "%' OR maintenance LIKE '%" + searchString + "%' OR \"employee_id\" LIKE '%" + searchString + "%' OR specials LIKE '%" + searchString + "%' OR returned LIKE '%" + searchString + "%'";
                 }
-
-                NpgsqlCommand cmd = new NpgsqlCommand("select link_id, \"model_table\".emp_id, \"employee-position_table\".pos_id, fio as ФИО, address as Адрес, (case when sex IS false then 'Мужской' else 'Женский' end) as Пол, age as Возраст, passport as \"Паспортные данные\", phone as Телефон, " + "\"name\" as Должность, oklad as Оклад FROM \"employee-position_table\" " +
-                    "JOIN employee_table ON employee_table.emp_id = \"employee-position_table\".emp_id JOIN position_table ON position_table.pos_id = \"employee-position_table\".pos_id" + parameters, cn);
+                NpgsqlCommand cmd = new NpgsqlCommand("select \"car_id\" as ID, model as Название, \"reg_num\" as Номер, \"body_num\" as \"Номер кузова\", \"engine_num\" as \"Номер мотора\", \"prod_year\" as \"Дата произодства\", mileage as Пробег, \"car_price\" as Стоимость, \"day_price\" as \"Цена проката\", maintenance as \"Последнее техобслуживание\", specials as Особенности, (case when returned IS false then 'Нет' else 'Да' end) as \"На стоянке\" from client_table" + parameters, cn);
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 DataTable dt = new DataTable();
                 dt.Load(reader);
@@ -78,20 +79,5 @@ namespace carsharing_project
         {
             BindData();
         }
-
-		private void EditToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			//AddCar form = new AddCar(dataGridView1.CurrentRow.Cells[0].Value.ToString(), dataGridView1.CurrentRow.Cells[1].Value.ToString(),
-			//	dataGridView1.CurrentRow.Cells[2].Value.ToString(), dataGridView1.CurrentRow.Cells[3].Value.ToString(), dataGridView1.CurrentRow.Cells[4].Value.ToString(),
-			//	dataGridView1.CurrentRow.Cells[5].Value.ToString(), dataGridView1.CurrentRow.Cells[6].Value.ToString(), dataGridView1.CurrentRow.Cells[7].Value.ToString(),
-			//	dataGridView1.CurrentRow.Cells[8].Value.ToString());
-			//form.FormClosed += (s, args) => BindData();
-			//form.Show();
-		}
-
-		private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-
-		}
-	}
+    }
 }
