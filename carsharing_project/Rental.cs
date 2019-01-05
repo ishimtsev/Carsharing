@@ -27,7 +27,7 @@ namespace carsharing_project
 
 		private void EditToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			AddRental form = new AddRental();
+			AddRental form = new AddRental(dataGridView1.CurrentRow.Cells[0].Value.ToString(), dataGridView1.CurrentRow.Cells[1].Value.ToString(), dataGridView1.CurrentRow.Cells[2].Value.ToString(), dataGridView1.CurrentRow.Cells[3].Value.ToString(), dataGridView1.CurrentRow.Cells[6].Value.ToString(), dataGridView1.CurrentRow.Cells[7].Value.ToString(), dataGridView1.CurrentRow.Cells[10].Value.ToString());
 			form.FormClosed += (s, args) => BindData();
 			form.Show();
 		}
@@ -76,8 +76,8 @@ namespace carsharing_project
 					}
 
 					NpgsqlCommand cmd = new NpgsqlCommand("SELECT rental_table.rent_id AS rentID, rental_table.car_id AS carID, rental_table.employee_id AS empID, rental_table.client_id AS cliID, car_table.name AS Автомобиль, " +
-		"client_table.fio AS Клиент, rental_table.start_date AS \"Начало проката\", rental_table.return_date AS \"Окончание проката\", rental_table.return_date-rental_table.start_date+1 AS Период, " +
-		"rental_table.rental_price AS Цена, (case when rental_table.is_paid IS true then 'Да' else 'Нет' end) as Оплачен FROM rental_table JOIN client_table ON client_table.cli_id=rental_table.client_id " +
+		"client_table.fio AS Клиент, rental_table.start_date AS \"Начало проката\", rental_table.return_date AS \"Окончание проката\", rental_table.return_date-rental_table.start_date+1 AS \"Период (дней)\", " +
+		"rental_table.rental_price AS \"Цена (руб)\", (case when rental_table.is_paid IS true then 'Да' else 'Нет' end) as Оплачен FROM rental_table JOIN client_table ON client_table.cli_id=rental_table.client_id " +
 		"JOIN car_table ON car_table.car_id=rental_table.car_id LEFT JOIN \"employee-position_table\" ON \"employee-position_table\".link_id=rental_table.employee_id " +
 		"JOIN employee_table ON employee_table.emp_id=\"employee-position_table\".emp_id ORDER BY rental_table.start_date;" + parameters, cn);
 					NpgsqlDataReader reader = cmd.ExecuteReader();
@@ -100,6 +100,26 @@ namespace carsharing_project
 		private void PaidToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 
+		}
+
+		private void StartDateTimePicker1_ValueChanged(object sender, EventArgs e)
+		{
+			if (StartDateTimePicker1.Value.Date > EndDateTimePicker2.Value.Date)
+				EndDateTimePicker2.Value = EndDateTimePicker2.Value.Date.AddDays(1);
+		}
+
+		private void FromPeriodCheckBox1_CheckedChanged(object sender, EventArgs e)
+		{
+			if (FromPeriodCheckBox1.Checked)
+			{
+				StartDateTimePicker1.Enabled = true;
+				EndDateTimePicker2.Enabled = true;
+			}
+			else
+			{
+				StartDateTimePicker1.Enabled = false;
+				EndDateTimePicker2.Enabled = false;
+			}
 		}
 	}
 }

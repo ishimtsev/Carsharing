@@ -56,26 +56,33 @@ namespace carsharing_project
 		private void BindData()
 		{
 			dataGridView1.ClearSelection();
-			using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
+			try
 			{
-				string searchString = SearchTextBox.Text;
-				cn.Open();
-				string parameters = string.Empty;
-				if (searchString != string.Empty)
+				using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
 				{
-					parameters = " WHERE fio LIKE '%" + searchString + "%' OR sex LIKE '%" + searchString + "%' OR birth LIKE '%" + searchString + "%' OR address LIKE '%" + searchString + "%' OR phone LIKE '%" + searchString + "%' OR passport LIKE '%" + searchString + "%'";
-				}
+					string searchString = SearchTextBox.Text;
+					cn.Open();
+					string parameters = string.Empty;
+					if (searchString != string.Empty)
+					{
+						parameters = " WHERE fio LIKE '%" + searchString + "%' OR sex LIKE '%" + searchString + "%' OR birth LIKE '%" + searchString + "%' OR address LIKE '%" + searchString + "%' OR phone LIKE '%" + searchString + "%' OR passport LIKE '%" + searchString + "%'";
+					}
 
-				NpgsqlCommand cmd = new NpgsqlCommand("select link_id, \"employee-position_table\".emp_id, \"employee-position_table\".pos_id, fio as ФИО, address as Адрес, (case when sex IS false then 'Мужской' else 'Женский' end) as Пол, age as Возраст, passport as \"Паспортные данные\", phone as Телефон, "+"\"name\" as Должность, oklad as Оклад FROM \"employee-position_table\" " +
-					"JOIN employee_table ON employee_table.emp_id = \"employee-position_table\".emp_id JOIN position_table ON position_table.pos_id = \"employee-position_table\".pos_id" + parameters, cn);
-				NpgsqlDataReader reader = cmd.ExecuteReader();
-				DataTable dt = new DataTable();
-				dt.Load(reader);
-				dataGridView1.DataSource = dt;
-				dataGridView1.Columns[0].Visible = false;
-				dataGridView1.Columns[1].Visible = false;
-				dataGridView1.Columns[2].Visible = false;
-				cn.Close();
+					NpgsqlCommand cmd = new NpgsqlCommand("select link_id, \"employee-position_table\".emp_id, \"employee-position_table\".pos_id, fio as ФИО, address as Адрес, (case when sex IS false then 'Мужской' else 'Женский' end) as Пол, age as Возраст, passport as \"Паспортные данные\", phone as Телефон, " + "\"name\" as Должность, oklad as Оклад FROM \"employee-position_table\" " +
+						"JOIN employee_table ON employee_table.emp_id = \"employee-position_table\".emp_id JOIN position_table ON position_table.pos_id = \"employee-position_table\".pos_id" + parameters, cn);
+					NpgsqlDataReader reader = cmd.ExecuteReader();
+					DataTable dt = new DataTable();
+					dt.Load(reader);
+					dataGridView1.DataSource = dt;
+					dataGridView1.Columns[0].Visible = false;
+					dataGridView1.Columns[1].Visible = false;
+					dataGridView1.Columns[2].Visible = false;
+					cn.Close();
+				}
+			}
+			catch(Exception er)
+			{
+				MessageBox.Show(er.Message);
 			}
 		}
 
