@@ -41,7 +41,7 @@ namespace carsharing_project
                     parameters = " WHERE \"name\" LIKE '%" + searchString + "%' OR oklad LIKE '%" + searchString + "%' OR duty LIKE '%" + searchString + "%' OR requirements LIKE '%" + searchString + "%'";
                 }
 
-                NpgsqlCommand cmd = new NpgsqlCommand("select \"pos_id\" as ID, name as \"Название\", oklad as \"Оклад\", Duty as \"Обязанности\", requrements as \"Требования\" from \"position_table\"" + parameters, cn);
+                NpgsqlCommand cmd = new NpgsqlCommand("select \"pos_id\" as ID, name as \"Название\", oklad as \"Оклад\", Duty as \"Обязанности\", requirements as \"Требования\" from \"position_table\"" + parameters, cn);
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 DataTable dt = new DataTable();
                 dt.Load(reader);
@@ -51,16 +51,14 @@ namespace carsharing_project
             }
         }
 
-        private void EditToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void EditToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Hide();
             AddPosition form = new AddPosition();
-            form.fioTextBox.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-            form.sexBox.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
-            form.birthPicker.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
-            form.addressTextBox.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
-            form.phoneTextBox.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
-            form.passTextBox.Text = dataGridView1.CurrentRow.Cells[6].Value.ToString();
+            form.NameTB.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+            form.zpTB.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+            form.obyazTB.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+            form.reqTB.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
 
             form.EditMode = true;
             form.id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
@@ -69,13 +67,13 @@ namespace carsharing_project
             form.Show();
         }
 
-        private void DeleteToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
                 using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
                 {
-                    using (NpgsqlCommand command = new NpgsqlCommand("DELETE FROM client_table WHERE (cli_id = '" + dataGridView1.CurrentRow.Cells[0].Value.ToString() + "')", cn))
+                    using (NpgsqlCommand command = new NpgsqlCommand("DELETE FROM position_table WHERE (pos_id = '" + dataGridView1.CurrentRow.Cells[0].Value.ToString() + "')", cn))
                     {
                         cn.Open();
                         command.ExecuteNonQuery();
@@ -110,6 +108,16 @@ namespace carsharing_project
             AddPosition form = new AddPosition();
             form.FormClosed += (s, args) => BindData();
             form.Show();
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void Positions_Load(object sender, EventArgs e)
+        {
+            BindData();
         }
     }
 }
