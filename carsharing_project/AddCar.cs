@@ -84,7 +84,7 @@ namespace carsharing_project
                     }
                     else
                     {
-                        string newprod = prodDTP.Value.Year + "-" + prodDTP.Value.Month + "-" + prodDTP.Value.Day;
+                        string newprod = prodDTP.Text + "-01-01";
                         string newmain = maintenanceDTP.Value.Year + "-" + maintenanceDTP.Value.Month + "-" + maintenanceDTP.Value.Day;
                         if (EditMode)
                         {
