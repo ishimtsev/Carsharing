@@ -84,22 +84,11 @@ namespace carsharing_project
             catch (Exception ex)
             {
                 if (ex.Message.StartsWith("Cannot delete or update a parent row: a foreign key constraint fails"))
-                    MessageBox.Show("Нельзя удалить должность, если с ней имеются работники.");
+                    MessageBox.Show("Нельзя удалить должность, если на ней имеются работники.");
                 else
                     MessageBox.Show(ex.Message);
             }
             BindData();
-        }
-
-        private void dataGridView1_CellMouseDown_1(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right && e.RowIndex >= 0 && e.ColumnIndex >= 0)
-            {
-                dataGridView1.ClearSelection();
-                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                contextMenuStrip1.Show(MousePosition);
-            }
         }
 
         private void AddClientButton1_Click(object sender, EventArgs e)
@@ -119,5 +108,16 @@ namespace carsharing_project
         {
             BindData();
         }
-    }
+
+		private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+		{
+			if (e.Button == MouseButtons.Right && e.RowIndex >= 0 && e.ColumnIndex >= 0)
+			{
+				dataGridView1.ClearSelection();
+				dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
+				dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+				contextMenuStrip1.Show(MousePosition);
+			}
+		}
+	}
 }

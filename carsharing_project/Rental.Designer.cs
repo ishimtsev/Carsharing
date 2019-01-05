@@ -46,6 +46,7 @@
 			// 
 			this.dataGridView1.AllowUserToAddRows = false;
 			this.dataGridView1.AllowUserToDeleteRows = false;
+			this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
 			this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -67,7 +68,7 @@
             this.DeleteToolStripMenuItem,
             this.PaidToolStripMenuItem});
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
-			this.contextMenuStrip1.Size = new System.Drawing.Size(211, 104);
+			this.contextMenuStrip1.Size = new System.Drawing.Size(192, 76);
 			// 
 			// AddRentalButton
 			// 

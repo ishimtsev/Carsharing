@@ -41,7 +41,7 @@ namespace carsharing_project
                 {
                     parameters = " WHERE \"name\" LIKE '%" + searchString + "%' OR \"reg_num\" LIKE '%" + searchString + "%' OR \"engine_num\" LIKE '%" + searchString + "%' \"OR prod_year\" LIKE '%" + searchString + "%' OR mileage LIKE '%" + searchString + "%' OR \"car_price\" LIKE '%" + searchString + "%' OR \"day_price\" LIKE '%" + searchString + "%' OR maintenance LIKE '%" + searchString + "%' OR \"employee_id\" LIKE '%" + searchString + "%' OR specials LIKE '%" + searchString + "%' OR returned LIKE '%" + searchString + "%'";
                 }
-                NpgsqlCommand cmd = new NpgsqlCommand("select \"car_id\" as ID, \"name\" as \"Название\", \"reg_num\" as \"Номер\", \"engine_num\" as \"Номер мотора\", \"prod_year\" as \"Дата произодства\", mileage as Пробег, \"car_price\" as Стоимость, \"day_price\" as \"Цена проката\", maintenance as \"Последнее техобслуживание\", specials as Особенности, (case when returned IS false then 'Нет' else 'Да' end) as \"На стоянке\" from car_table" + parameters, cn);
+                NpgsqlCommand cmd = new NpgsqlCommand("select car_id as carID, \"name\" as Название, reg_num as \"Рег. номер\", \"engine_num\" as \"Номер двигателя\", EXTRACT(year from prod_year) as \"Год произодства\", mileage as Пробег, car_price as Стоимость, day_price as \"Цена дня проката\", maintenance as \"Последнее ТО\", specials as Примечания, (case when returned IS false then 'Нет' else 'Да' end) as Свободен from car_table" + parameters, cn);
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 DataTable dt = new DataTable();
                 dt.Load(reader);
