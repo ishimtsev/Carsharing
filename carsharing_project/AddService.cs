@@ -48,7 +48,7 @@ namespace carsharing_project
 				if (NameTextBox1.Text == "" || DescrTextBox2.Text == "" || PriceTextBox3.Text == "")
 					throw new Exception("Заполните все поля.");
 				if (!int.TryParse(PriceTextBox3.Text, out int price) || (price < 0))
-					throw new Exception("Введён некорректный возраст.");
+					throw new Exception("Введена некорректная цена.");
 
 				if (EditMode)
 				{

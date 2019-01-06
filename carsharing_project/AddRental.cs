@@ -20,7 +20,9 @@ namespace carsharing_project
 		public string cliID = string.Empty;
 		public string empID = string.Empty;
 		public string rentID = string.Empty;
-        private bool doom = false;
+		int CarPrice = 0;
+		int TotalPrice = 0;
+		bool temp = false;
 
 		public AddRental()
 		{
@@ -41,14 +43,8 @@ namespace carsharing_project
 				IsPaidCheckBox1.Checked = true;
 			else
 				IsPaidCheckBox1.Checked = false;
-            //
-            //выбор на datetimepicker начала и окончания проката
-            //
-            //PriceLabel.Text = start;
-            DateTime dt1 = DateTime.ParseExact(start, "dd.MM.yyyy H:mm:ss", CultureInfo.InvariantCulture);
-            DateTime dt2 = DateTime.ParseExact(end, "dd.MM.yyyy H:mm:ss", CultureInfo.InvariantCulture);
-            EndDateTimePicker2.Value = dt2;
-            StartDateTimePicker1.Value = dt1;
+			StartDateTimePicker1.Value = DateTime.ParseExact(start, "dd.MM.yyyy H:mm:ss", CultureInfo.InvariantCulture);
+			EndDateTimePicker2.Value = DateTime.ParseExact(end, "dd.MM.yyyy H:mm:ss", CultureInfo.InvariantCulture);
         }
 
 		private void AddRental_Load(object sender, EventArgs e)
@@ -59,31 +55,26 @@ namespace carsharing_project
 			dataGridView1.Columns.Add("Количество", "Количество");
 			dataGridView1.Columns.Add("Стоимость", "Стоимость");
 
-			///////////////////////////////////////////////////////////////////////////////////////
-			//PriceLabel.Text = "5555";
-			///////////////////////////////////////////////////////////////////////////////////////
-
-
 			try
 			{
 				using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
 				{
 					cn.Open();
 
-                    //if (EditMode)
-                    //{
-                    //    //получение списка услуг
-                    //    NpgsqlCommand cmd4 = new NpgsqlCommand("select services from rental_table WHERE rent_id=" + rentID + ";", cn);
-                    //    string services = cmd4.ExecuteScalar().ToString();
-                    //    ServiceList list = JsonConvert.DeserializeObject<ServiceList>(services);
-                    //    foreach (var service in list.services)
-                    //    {
-                    //        dataGridView1.Rows.Add(service.Name, service.Description, service.Price, service.Count, Convert.ToInt32(service.Price) * Convert.ToInt32(service.Count));
-                    //    }
-                    //}
+					if (EditMode)
+					{
+						//получение списка услуг
+						NpgsqlCommand cmd4 = new NpgsqlCommand("select services from rental_table WHERE rent_id=" + rentID + ";", cn);
+						string services = cmd4.ExecuteScalar().ToString();
+						ServiceList list = JsonConvert.DeserializeObject<ServiceList>(services);
+						foreach (var service in list.services)
+						{
+							dataGridView1.Rows.Add(service.Name, service.Description, service.Price, service.Count, Convert.ToInt32(service.Price) * Convert.ToInt32(service.Count));
+						}
+					}
 
-                    //получение списка клиентов
-                    NpgsqlCommand cmd1 = new NpgsqlCommand("select cli_id as cliID, fio|| ', ' ||passport as cli_name from client_table;", cn);
+					//получение списка клиентов
+					NpgsqlCommand cmd1 = new NpgsqlCommand("select cli_id as cliID, fio|| ', ' ||passport as cli_name from client_table;", cn);
 					NpgsqlDataReader reader1 = cmd1.ExecuteReader();
 					DataTable dt1 = new DataTable();
 					dt1.Load(reader1);
@@ -122,8 +113,8 @@ namespace carsharing_project
                     foreach (object emp in EmployeesListBox1.ValueMember)
                         if (Convert.ToString(emp) == empID) CarListBox1.SelectedValue = emp;
                 }
-                doom = true;
-				RefreshPrice();
+                //doom = true;
+				RefreshPrice(false);
             }
 			catch (Exception er)
 			{
@@ -161,7 +152,7 @@ namespace carsharing_project
 			{
 				dataGridView1.Rows.Add(form.NameTextBox1.Text, form.DescrTextBox2.Text, form.PriceTextBox3.Text, form.CountNumericUpDown1.Value, (Convert.ToInt32(form.PriceTextBox3.Text) * form.CountNumericUpDown1.Value));
 			}
-			RefreshPrice();
+			RefreshPrice(false);
 		}
 
 		private void EditToolStripMenuItem_Click(object sender, EventArgs e)
@@ -175,42 +166,55 @@ namespace carsharing_project
 				dataGridView1.CurrentRow.Cells[3].Value = form.CountNumericUpDown1.Value;
 				dataGridView1.CurrentRow.Cells[4].Value = Convert.ToInt32(form.PriceTextBox3.Text) * form.CountNumericUpDown1.Value;
 			}
-			RefreshPrice();
+			RefreshPrice(false);
 		}
 
 		private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			dataGridView1.Rows.Remove(dataGridView1.CurrentRow);
-			RefreshPrice();
+			RefreshPrice(false);
 		}
 
-		public void RefreshPrice()
+		public void RefreshPrice(bool carChanged)
 		{
-            string send = CarListBox1.SelectedValue.ToString();
-            string carM = "1000", servM = "0", days;
-            using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
-            {
-                cn.Open();
+			//string send = CarListBox1.SelectedValue.ToString();
+			//string carM = "1000", servM = "0", days;
+			//int carPrice = 0;
+			//int totalPrice = 0;
+			if (carChanged && CarListBox1.SelectedValue.ToString() != "System.Data.DataRowView")
+			{
+				using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
+				{
+					cn.Open();
+					NpgsqlCommand cmd = new NpgsqlCommand("select round(day_price) from car_table where car_id = " + CarListBox1.SelectedValue.ToString() + ";", cn);
+					CarPrice = Convert.ToInt32(cmd.ExecuteScalar());
+					//DataTable dt = new DataTable();
+					//dt.Load(reader);
+					//carM = dt.Rows[0][0].ToString();
+					//if (carM.Length > 5)
+					//    carM = carM.Remove(carM.Length - 5);
+					cn.Close();
+				}
+			}
+			//DateTime d1 = StartDateTimePicker1.Value.Date;
+			//DateTime d2 = EndDateTimePicker2.Value.Date;
+			//TimeSpan time = d2 - d1;
+			//days = Convert.ToString(Convert.ToInt32(time.Days) + 1);
+			//PeriodLabel.Text = days;
 
-                NpgsqlCommand cmd = new NpgsqlCommand("select day_price from car_table where car_id = " + send + ";", cn);
-                NpgsqlDataReader reader = cmd.ExecuteReader();
-                DataTable dt = new DataTable();
-                dt.Load(reader);
-                carM = dt.Rows[0][0].ToString();
-                if (carM.Length > 5)
-                    carM = carM.Remove(carM.Length - 5);
-                cn.Close();
-            }
-            DateTime d1 = StartDateTimePicker1.Value.Date;
-            DateTime d2 = EndDateTimePicker2.Value.Date;
-            TimeSpan time = d2 - d1;
-            days = Convert.ToString(Convert.ToInt32(time.Days) + 1);
-            PeriodLabel.Text = days;
-            if (dataGridView1.Rows.Count > 0)
-                servM = Convert.ToString(dataGridView1.CurrentRow.Cells[2]);
-            PriceLabel.Text = Convert.ToString((Convert.ToUInt32(carM) + Convert.ToUInt32(servM)) * Convert.ToUInt32(days));
-
-        }
+			TotalPrice = CarPrice * Convert.ToInt32(PeriodLabel.Text);
+			if (dataGridView1.Rows.Count > 0)
+			{
+				foreach (DataGridViewRow row in dataGridView1.Rows)
+				{
+					TotalPrice += Convert.ToInt32(row.Cells[4].Value);
+				}
+			}
+			PriceLabel.Text = TotalPrice.ToString();
+			//if (dataGridView1.Rows.Count > 0)
+			//	servM = Convert.ToString(dataGridView1.CurrentRow.Cells[2]);
+			//PriceLabel.Text = Convert.ToString((Convert.ToUInt32(carM) + Convert.ToUInt32(servM)) * Convert.ToUInt32(days));
+		}
 
 		private void OKbutton1_Click(object sender, EventArgs e)
 		{
@@ -229,7 +233,7 @@ namespace carsharing_project
                     using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
                     {
                         cn.Open();
-                        string totalprice = PriceLabel.Text;
+                        string totalprice = TotalPrice.ToString();
                         string services = SerializeServices();
 
                         NpgsqlCommand cmd1 = new NpgsqlCommand("insert into rental_table (start_date, return_date, car_id, client_id, rental_price, is_paid, employee_id, services) " +
@@ -237,23 +241,25 @@ namespace carsharing_project
                         cmd1.ExecuteNonQuery();
                         cn.Close();
                     }
+					Close();
                 }
                 else //обновление
                 {
                     using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
                     {
                         cn.Open();
-                        string totalprice = PriceLabel.Text;
+                        string totalprice = TotalPrice.ToString();
                         string services = SerializeServices();
 
                         NpgsqlCommand cmd1 = new NpgsqlCommand("update rental_table SET start_date='" + StartDateTimePicker1.Value.ToString("yyyy-MM-dd") +
                             "', return_date='" + EndDateTimePicker2.Value.ToString("yyyy-MM-dd") + "', car_id='" + CarListBox1.SelectedValue.ToString() +
                             "', rental_price=" + totalprice + ", is_paid=" + (IsPaidCheckBox1.Checked ? "true" : "false") +
-                            ", employee_id=" + EmployeesListBox1.SelectedValue.ToString() + ", services='" + services + "');", cn);
+                            ", employee_id=" + EmployeesListBox1.SelectedValue.ToString() + ", services='" + services + "';", cn);
                         cmd1.ExecuteNonQuery();
                         cn.Close();
                     }
-                }
+					Close();
+				}
             }
             catch (Exception er)
             {
@@ -275,23 +281,22 @@ namespace carsharing_project
 				}
 				return JsonConvert.SerializeObject(list);
 			}
-			
 		}
 
 		private void StartDateTimePicker1_ValueChanged(object sender, EventArgs e)
 		{
-            if (doom)
-            {
-                if (StartDateTimePicker1.Value.Date > EndDateTimePicker2.Value.Date)
-                    EndDateTimePicker2.Value = EndDateTimePicker2.Value.Date.AddDays(1);
-                RefreshPrice();
-            }
+			if (StartDateTimePicker1.Value.Date > EndDateTimePicker2.Value.Date)
+				EndDateTimePicker2.Value = EndDateTimePicker2.Value.Date.AddDays(1);
+
+			TimeSpan period = EndDateTimePicker2.Value.Date.AddDays(1) - StartDateTimePicker1.Value.Date;
+			PeriodLabel.Text = period.Days.ToString();
+
+			RefreshPrice(false);
 		}
 
         private void CarListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (doom)
-                RefreshPrice();
-        }
-    }
+			RefreshPrice(true);
+		}
+	}
 }

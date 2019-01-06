@@ -28,7 +28,6 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuForm));
 			this.button1 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
 			this.CarsButton3 = new System.Windows.Forms.Button();
@@ -87,7 +86,8 @@
 			this.textBox1.Name = "textBox1";
 			this.textBox1.Size = new System.Drawing.Size(738, 321);
 			this.textBox1.TabIndex = 3;
-			this.textBox1.Text = resources.GetString("textBox1.Text");
+			this.textBox1.Text = "В AddRental из конструктора выбирать строки с нужной машиной и сотрудником в лист" +
+    "боксах.\r\n\r\nУбрать у машины столбец returned, он только мешает.\r\n\r\n";
 			this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
 			// 
 			// MenuForm

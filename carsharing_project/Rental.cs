@@ -27,7 +27,7 @@ namespace carsharing_project
 
 		private void EditToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			AddRental form = new AddRental(dataGridView1.CurrentRow.Cells[0].Value.ToString(), dataGridView1.CurrentRow.Cells[1].Value.ToString(), dataGridView1.CurrentRow.Cells[2].Value.ToString(), dataGridView1.CurrentRow.Cells[3].Value.ToString(), dataGridView1.CurrentRow.Cells[6].Value.ToString(), dataGridView1.CurrentRow.Cells[7].Value.ToString(), dataGridView1.CurrentRow.Cells[10].Value.ToString());
+			AddRental form = new AddRental(dataGridView1.CurrentRow.Cells[0].Value.ToString(), dataGridView1.CurrentRow.Cells[1].Value.ToString(), dataGridView1.CurrentRow.Cells[2].Value.ToString(), dataGridView1.CurrentRow.Cells[3].Value.ToString(), dataGridView1.CurrentRow.Cells[6].Value.ToString(), dataGridView1.CurrentRow.Cells[7].Value.ToString(), dataGridView1.CurrentRow.Cells[11].Value.ToString());
 			form.FormClosed += (s, args) => BindData();
 			form.Show();
 		}
@@ -59,13 +59,10 @@ namespace carsharing_project
 				dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
 				dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
 				contextMenuStrip1.Show(MousePosition);
-				////////////////////////////////////////////////////////////////////////////
-				// потом выбрать нужный ряд
-				if (dataGridView1.CurrentRow.Cells[10].Value.ToString() == "Нет")
+				if (dataGridView1.CurrentRow.Cells[11].Value.ToString() == "Нет")
 					PaidToolStripMenuItem.Enabled = true;
 				else
 					PaidToolStripMenuItem.Enabled = false;
-				////////////////////////////////////////////////////////////////////////////
 			}
 		}
 
@@ -86,7 +83,7 @@ namespace carsharing_project
 
 					NpgsqlCommand cmd = new NpgsqlCommand("SELECT rental_table.rent_id AS rentID, rental_table.car_id AS carID, rental_table.employee_id AS empID, rental_table.client_id AS cliID, car_table.name AS Автомобиль, " +
 		"client_table.fio AS Клиент, rental_table.start_date AS \"Начало проката\", rental_table.return_date AS \"Окончание проката\", rental_table.return_date-rental_table.start_date+1 AS \"Период (дней)\", " +
-		"rental_table.rental_price AS \"Цена (руб)\", (case when rental_table.is_paid IS true then 'Да' else 'Нет' end) as Оплачен FROM rental_table JOIN client_table ON client_table.cli_id=rental_table.client_id " +
+		"round(rental_table.rental_price) AS \"Цена (руб)\", employee_table.fio AS Менеджер, (case when rental_table.is_paid IS true then 'Да' else 'Нет' end) as Оплачен FROM rental_table JOIN client_table ON client_table.cli_id=rental_table.client_id " +
 		"JOIN car_table ON car_table.car_id=rental_table.car_id LEFT JOIN \"employee-position_table\" ON \"employee-position_table\".link_id=rental_table.employee_id " +
 		"JOIN employee_table ON employee_table.emp_id=\"employee-position_table\".emp_id ORDER BY rental_table.start_date;" + parameters, cn);
 					NpgsqlDataReader reader = cmd.ExecuteReader();
@@ -108,17 +105,24 @@ namespace carsharing_project
 
 		private void PaidToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-            using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
-            {
-                cn.Open();
+            try
+			{
+				using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
+				{
+					cn.Open();
 
-                using (NpgsqlCommand command = new NpgsqlCommand("UPDATE rental_table SET is_paid = 'true' WHERE (rent_id = '" + dataGridView1.CurrentRow.Cells[0].Value.ToString() + "')", cn))
-                {
-                    command.ExecuteNonQuery();
-                    cn.Close();
-                }
-            }
-            BindData();
+					using (NpgsqlCommand command = new NpgsqlCommand("UPDATE rental_table SET is_paid = true WHERE (rent_id = " + dataGridView1.CurrentRow.Cells[0].Value.ToString() + ");", cn))
+					{
+						command.ExecuteNonQuery();
+					}
+					cn.Close();
+				}
+			}
+			catch (Exception er)
+			{
+				MessageBox.Show(er.Message);
+			}
+			BindData();
         }
 
 		private void StartDateTimePicker1_ValueChanged(object sender, EventArgs e)

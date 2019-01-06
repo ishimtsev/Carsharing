@@ -24,10 +24,6 @@ namespace carsharing_project
 
 	public class ServiceList
 	{
-		public List<Service> services { get; set; } //public Service[] services { get; set; }
-		//public ServiceList()
-		//{
-		//	services=new 
-		//}
+		public List<Service> services { get; set; }
 	}
 }

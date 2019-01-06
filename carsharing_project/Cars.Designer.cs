@@ -55,7 +55,7 @@
 			this.dataGridView1.ReadOnly = true;
 			this.dataGridView1.RowTemplate.Height = 28;
 			this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dataGridView1.Size = new System.Drawing.Size(1182, 562);
+			this.dataGridView1.Size = new System.Drawing.Size(1303, 562);
 			this.dataGridView1.TabIndex = 0;
 			// 
 			// contextMenuStrip1
@@ -93,7 +93,7 @@
 			// 
 			// addButton
 			// 
-			this.addButton.Location = new System.Drawing.Point(934, 26);
+			this.addButton.Location = new System.Drawing.Point(1096, 26);
 			this.addButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.addButton.Name = "addButton";
 			this.addButton.Size = new System.Drawing.Size(195, 38);
@@ -114,7 +114,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1182, 656);
+			this.ClientSize = new System.Drawing.Size(1303, 656);
 			this.Controls.Add(this.searchTextBox);
 			this.Controls.Add(this.addButton);
 			this.Controls.Add(this.searchButton);
