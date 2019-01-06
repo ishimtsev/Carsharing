@@ -22,11 +22,11 @@ namespace carsharing_project
         {
             if (e.Button == MouseButtons.Right && e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                dataGridView1.ClearSelection();
-                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                contextMenuStrip1.Show(MousePosition);
-            }
+				dataGridView1.ClearSelection();
+				dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
+				dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+				contextMenuStrip1.Show(MousePosition);
+			}
         }
 
         private void BindData()

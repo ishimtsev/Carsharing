@@ -22,7 +22,6 @@ namespace carsharing_project
 		public string rentID = string.Empty;
 		int CarPrice = 0;
 		int TotalPrice = 0;
-		bool temp = false;
 
 		public AddRental()
 		{
@@ -67,9 +66,12 @@ namespace carsharing_project
 						NpgsqlCommand cmd4 = new NpgsqlCommand("select services from rental_table WHERE rent_id=" + rentID + ";", cn);
 						string services = cmd4.ExecuteScalar().ToString();
 						ServiceList list = JsonConvert.DeserializeObject<ServiceList>(services);
-						foreach (var service in list.services)
+						if (list != null)
 						{
-							dataGridView1.Rows.Add(service.Name, service.Description, service.Price, service.Count, Convert.ToInt32(service.Price) * Convert.ToInt32(service.Count));
+							foreach (var service in list.services)
+							{
+								dataGridView1.Rows.Add(service.Name, service.Description, service.Price, service.Count, Convert.ToInt32(service.Price) * Convert.ToInt32(service.Count));
+							}
 						}
 					}
 
@@ -93,7 +95,7 @@ namespace carsharing_project
 					CarListBox1.ValueMember = "carID";
 
 					//получение списка сотрудников
-					NpgsqlCommand cmd3 = new NpgsqlCommand("select employee_table.emp_id as empID, fio|| ', ' ||passport as emp_name from \"employee-position_table\" join employee_table ON employee_table.emp_id=\"employee-position_table\".emp_id join position_table ON position_table.pos_id=\"employee-position_table\".pos_id WHERE position_table.\"name\"='Менеджер по работе с клиентами';", cn);
+					NpgsqlCommand cmd3 = new NpgsqlCommand("select \"employee-position_table\".link_id as empID, fio|| ', ' ||passport as emp_name from \"employee-position_table\" join employee_table ON employee_table.emp_id=\"employee-position_table\".emp_id join position_table ON position_table.pos_id=\"employee-position_table\".pos_id WHERE position_table.\"name\"='Менеджер по работе с клиентами';", cn);
 					NpgsqlDataReader reader3 = cmd3.ExecuteReader();
 					DataTable dt3 = new DataTable();
 					dt3.Load(reader3);
@@ -251,10 +253,10 @@ namespace carsharing_project
                         string totalprice = TotalPrice.ToString();
                         string services = SerializeServices();
 
-                        NpgsqlCommand cmd1 = new NpgsqlCommand("update rental_table SET start_date='" + StartDateTimePicker1.Value.ToString("yyyy-MM-dd") +
-                            "', return_date='" + EndDateTimePicker2.Value.ToString("yyyy-MM-dd") + "', car_id='" + CarListBox1.SelectedValue.ToString() +
-                            "', rental_price=" + totalprice + ", is_paid=" + (IsPaidCheckBox1.Checked ? "true" : "false") +
-                            ", employee_id=" + EmployeesListBox1.SelectedValue.ToString() + ", services='" + services + "';", cn);
+						NpgsqlCommand cmd1 = new NpgsqlCommand("update rental_table SET start_date='" + StartDateTimePicker1.Value.ToString("yyyy-MM-dd") +
+							"', return_date='" + EndDateTimePicker2.Value.ToString("yyyy-MM-dd") + "', car_id='" + CarListBox1.SelectedValue.ToString() +
+							"', rental_price=" + totalprice + ", is_paid=" + (IsPaidCheckBox1.Checked ? "true" : "false") +
+							", employee_id=" + EmployeesListBox1.SelectedValue.ToString() + ", services='" + services + "' WHERE rental_table.rent_id=" + rentID + ";", cn);
                         cmd1.ExecuteNonQuery();
                         cn.Close();
                     }

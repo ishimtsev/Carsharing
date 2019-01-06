@@ -89,7 +89,7 @@ namespace carsharing_project
                         if (EditMode)
                         {
                             using (NpgsqlCommand command = new NpgsqlCommand($"UPDATE \"car_table\" SET \"name\" = '" +
-                             nameTB.Text + "', \"reg_num\" = '" + regTB.Text +"', \"engine_num\" = '" + engTB.Text + "', \"prod_year\" = '" + newprod + "', mileage = '" + mileageTB.Text + "', \"car_price\" = '" + carpriceTB.Text + "', \"day_price\" = '" + daypriceTB.Text + "', maintenance = '" + newmain + "', specials = '" + specTB.Text + "', returned = '1' WHERE (\"car_id\" = '" + id + "')", cn))
+                             nameTB.Text + "', \"reg_num\" = '" + regTB.Text +"', \"engine_num\" = '" + engTB.Text + "', \"prod_year\" = '" + newprod + "', mileage = '" + mileageTB.Text + "', \"car_price\" = '" + carpriceTB.Text + "', \"day_price\" = '" + daypriceTB.Text + "', maintenance = '" + newmain + "', specials = '" + specTB.Text + "' WHERE (\"car_id\" = '" + id + "')", cn))
                             {
                                 command.ExecuteNonQuery();
                                 cn.Close();
@@ -98,9 +98,9 @@ namespace carsharing_project
                         }
                         else
                         {
-                            using (NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO \"car_table\" (\"name\", \"reg_num\", \"engine_num\", \"prod_year\", mileage, \"car_price\", \"day_price\", maintenance, specials, returned) " +
+                            using (NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO \"car_table\" (\"name\", \"reg_num\", \"engine_num\", \"prod_year\", mileage, \"car_price\", \"day_price\", maintenance, specials) " +
                             //"VALUES ('" + fioTextBox.Text + "', '" + sexBox.Text + "', '" + birthPicker.Text + "', '" + addressTextBox.Text + "', '" + phoneTextBox.Text + "', '" + passTextBox.Text + "')"
-                            "VALUES ('" + nameTB.Text + "', '" + regTB.Text + "', '" + engTB.Text + "', '" + newprod + "', '" + mileageTB.Text + "', '" + carpriceTB.Text + "', '" + daypriceTB.Text + "', '" + newmain + "', '" + specTB.Text + "', '1')", cn))
+                            "VALUES ('" + nameTB.Text + "', '" + regTB.Text + "', '" + engTB.Text + "', '" + newprod + "', '" + mileageTB.Text + "', '" + carpriceTB.Text + "', '" + daypriceTB.Text + "', '" + newmain + "', '" + specTB.Text + "')", cn))
                             {
                                 command.ExecuteNonQuery();
                                 cn.Close();
