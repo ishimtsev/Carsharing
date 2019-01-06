@@ -95,7 +95,7 @@
 			this.EmployeesListBox2.Location = new System.Drawing.Point(6, 48);
 			this.EmployeesListBox2.Name = "EmployeesListBox2";
 			this.EmployeesListBox2.Size = new System.Drawing.Size(271, 340);
-			this.EmployeesListBox2.TabIndex = 6;
+			this.EmployeesListBox2.TabIndex = 1;
 			// 
 			// groupBox2
 			// 
@@ -178,14 +178,14 @@
 			this.phonetextBox5.Location = new System.Drawing.Point(166, 164);
 			this.phonetextBox5.Name = "phonetextBox5";
 			this.phonetextBox5.Size = new System.Drawing.Size(303, 22);
-			this.phonetextBox5.TabIndex = 4;
+			this.phonetextBox5.TabIndex = 6;
 			// 
 			// passporttextBox4
 			// 
 			this.passporttextBox4.Location = new System.Drawing.Point(166, 135);
 			this.passporttextBox4.Name = "passporttextBox4";
 			this.passporttextBox4.Size = new System.Drawing.Size(303, 22);
-			this.passporttextBox4.TabIndex = 4;
+			this.passporttextBox4.TabIndex = 5;
 			// 
 			// agetextBox3
 			// 
@@ -199,14 +199,14 @@
 			this.addresstextBox2.Location = new System.Drawing.Point(166, 49);
 			this.addresstextBox2.Name = "addresstextBox2";
 			this.addresstextBox2.Size = new System.Drawing.Size(303, 22);
-			this.addresstextBox2.TabIndex = 4;
+			this.addresstextBox2.TabIndex = 2;
 			// 
 			// fiotextBox1
 			// 
 			this.fiotextBox1.Location = new System.Drawing.Point(166, 21);
 			this.fiotextBox1.Name = "fiotextBox1";
 			this.fiotextBox1.Size = new System.Drawing.Size(303, 22);
-			this.fiotextBox1.TabIndex = 4;
+			this.fiotextBox1.TabIndex = 1;
 			// 
 			// SexComboBox1
 			// 
@@ -234,7 +234,7 @@
 			this.OKbutton1.Location = new System.Drawing.Point(484, 429);
 			this.OKbutton1.Name = "OKbutton1";
 			this.OKbutton1.Size = new System.Drawing.Size(135, 50);
-			this.OKbutton1.TabIndex = 4;
+			this.OKbutton1.TabIndex = 8;
 			this.OKbutton1.Text = "OK";
 			this.OKbutton1.UseVisualStyleBackColor = true;
 			this.OKbutton1.Click += new System.EventHandler(this.OKbutton1_Click);
@@ -246,7 +246,7 @@
 			this.PositionsListBox1.Location = new System.Drawing.Point(830, 33);
 			this.PositionsListBox1.Name = "PositionsListBox1";
 			this.PositionsListBox1.Size = new System.Drawing.Size(267, 372);
-			this.PositionsListBox1.TabIndex = 6;
+			this.PositionsListBox1.TabIndex = 7;
 			// 
 			// AddEmployee
 			// 

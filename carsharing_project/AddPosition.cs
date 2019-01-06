@@ -25,24 +25,19 @@ namespace carsharing_project
         {
             try
             {
-                if (NameTB.Text.Length > 45)
-                    throw new Exception("Название должности: не более 45 символов.");
                 if (NameTB.Text == string.Empty)
                     throw new Exception("Не задано название должности.");
-                if (obyazTB.Text.Length > 45)
-                    throw new Exception("Адрес: не более 45 символов.");
                 if (obyazTB.Text == string.Empty)
-                    throw new Exception("Не задан адрес.");
-                if (zpTB.Text.Length > 45)
-                    throw new Exception("Телефон: не более 45 символов.");
+                    throw new Exception("Не заданы обязанности.");
                 if (zpTB.Text == string.Empty)
-                    throw new Exception("Не задан телефон.");
-                if (reqTB.Text.Length > 45)
-                    throw new Exception("Паспортные данные: не более 45 символов.");
+                    throw new Exception("Не задан оклад.");
                 if (reqTB.Text == string.Empty)
-                    throw new Exception("Не заданы паспортные данные.");
+                    throw new Exception("Не заданы требования.");
+				if (!int.TryParse(zpTB.Text, out int oklad) || (oklad < 0))
+					throw new Exception("Введён некорректный оклад.");
 
-                using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
+
+				using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
                 {
                     cn.Open();
                     string parameters = " WHERE \"name\" LIKE '" + NameTB.Text + "'";

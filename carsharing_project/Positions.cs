@@ -41,7 +41,7 @@ namespace carsharing_project
                     parameters = " WHERE \"name\" LIKE '%" + searchString + "%' OR oklad LIKE '%" + searchString + "%' OR duty LIKE '%" + searchString + "%' OR requirements LIKE '%" + searchString + "%'";
                 }
 
-                NpgsqlCommand cmd = new NpgsqlCommand("select \"pos_id\" as ID, name as \"Название\", oklad as \"Оклад\", Duty as \"Обязанности\", requirements as \"Требования\" from \"position_table\"" + parameters, cn);
+                NpgsqlCommand cmd = new NpgsqlCommand("select \"pos_id\" as ID, name as \"Название\", round(oklad) as \"Оклад (руб)\", Duty as \"Обязанности\", requirements as \"Требования\" from \"position_table\"" + parameters, cn);
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 DataTable dt = new DataTable();
                 dt.Load(reader);
@@ -53,7 +53,7 @@ namespace carsharing_project
 
         private void EditToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Hide();
+            //Hide();
             AddPosition form = new AddPosition();
             form.NameTB.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
             form.zpTB.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();

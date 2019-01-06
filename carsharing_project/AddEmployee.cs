@@ -53,20 +53,17 @@ namespace carsharing_project
 			{
 				cn.Open();
 
-				if (!EditMode)
-				{
-					//получение списка сотрудников
-					NpgsqlCommand cmd1 = new NpgsqlCommand("select employee_table.emp_id as ID, fio|| ', ' ||passport as emp_name from \"employee-position_table\" join employee_table ON employee_table.emp_id=\"employee-position_table\".emp_id;", cn);
-					NpgsqlDataReader reader1 = cmd1.ExecuteReader();
-					DataTable dt1 = new DataTable();
-					dt1.Load(reader1);
-					EmployeesListBox2.DataSource = dt1;
-					EmployeesListBox2.DisplayMember = "emp_name";
-					EmployeesListBox2.ValueMember = "ID";
-				}
+				//получение списка сотрудников
+				NpgsqlCommand cmd1 = new NpgsqlCommand("select distinct employee_table.emp_id as ID, fio|| ', ' ||passport as emp_name from \"employee-position_table\" join employee_table ON employee_table.emp_id=\"employee-position_table\".emp_id;", cn);
+				NpgsqlDataReader reader1 = cmd1.ExecuteReader();
+				DataTable dt1 = new DataTable();
+				dt1.Load(reader1);
+				EmployeesListBox2.DataSource = dt1;
+				EmployeesListBox2.DisplayMember = "emp_name";
+				EmployeesListBox2.ValueMember = "ID";
 
 				//получение списка должностей
-				NpgsqlCommand cmd2 = new NpgsqlCommand("select pos_id as ID, \"name\"|| ', ' ||oklad as pos_name from position_table;", cn);
+				NpgsqlCommand cmd2 = new NpgsqlCommand("select pos_id as ID, \"name\"|| ', ' ||round(oklad) as pos_name from position_table;", cn);
 				NpgsqlDataReader reader2 = cmd2.ExecuteReader();
 				DataTable dt2 = new DataTable();
 				dt2.Load(reader2);
@@ -76,6 +73,26 @@ namespace carsharing_project
 				PositionsListBox1.ValueMember = "ID";
 
 				cn.Close();
+
+				if (EditMode)
+				{
+					for (int i = 0; i < dt1.Rows.Count; i++)
+					{
+						if (dt1.Rows[i][0].ToString() == empID)
+						{
+							EmployeesListBox2.SelectedIndex = i;
+							break;
+						}
+					}
+					for (int i = 0; i < dt2.Rows.Count; i++)
+					{
+						if (dt2.Rows[i][0].ToString() == posID)
+						{
+							PositionsListBox1.SelectedIndex = i;
+							break;
+						}
+					}
+				}
 			}
 		}
 
