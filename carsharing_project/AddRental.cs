@@ -60,6 +60,21 @@ namespace carsharing_project
 				{
 					cn.Open();
 
+					if (EditMode)
+					{
+						//получение списка услуг
+						NpgsqlCommand cmd4 = new NpgsqlCommand("select services from rental_table WHERE rent_id=" + rentID + ";", cn);
+						string services = cmd4.ExecuteScalar().ToString();
+						ServiceList list = JsonConvert.DeserializeObject<ServiceList>(services);
+						if (list != null)
+						{
+							foreach (var service in list.services)
+							{
+								dataGridView1.Rows.Add(service.Name, service.Description, service.Price, service.Count, Convert.ToInt32(service.Price) * Convert.ToInt32(service.Count));
+							}
+						}
+					}
+
 					//получение списка клиентов
 					NpgsqlCommand cmd1 = new NpgsqlCommand("select cli_id as cliID, fio|| ', ' ||passport as cli_name from client_table;", cn);
 					NpgsqlDataReader reader1 = cmd1.ExecuteReader();
@@ -89,47 +104,18 @@ namespace carsharing_project
 					EmployeesListBox1.DisplayMember = "emp_name";
 					EmployeesListBox1.ValueMember = "empID";
 
-					if (EditMode)
-					{
-						//получение списка услуг
-						NpgsqlCommand cmd4 = new NpgsqlCommand("select services from rental_table WHERE rent_id=" + rentID + ";", cn);
-						string services = cmd4.ExecuteScalar().ToString();
-						ServiceList list = JsonConvert.DeserializeObject<ServiceList>(services);
-						if (list != null)
-						{
-							foreach (var service in list.services)
-							{
-								dataGridView1.Rows.Add(service.Name, service.Description, service.Price, service.Count, Convert.ToInt32(service.Price) * Convert.ToInt32(service.Count));
-							}
-						}
-
-						for (int i = 0; i < dt1.Rows.Count; i++)
-						{
-							if (dt1.Rows[i][0].ToString() == cliID)
-							{
-								ClientListBox2.SelectedIndex = i;
-								break;
-							}
-						}
-						for (int i = 0; i < dt2.Rows.Count; i++)
-						{
-							if (dt2.Rows[i][0].ToString() == carID)
-							{
-								CarListBox1.SelectedIndex = i;
-								break;
-							}
-						}
-						for (int i = 0; i < dt3.Rows.Count; i++)
-						{
-							if (dt3.Rows[i][0].ToString() == empID)
-							{
-								EmployeesListBox1.SelectedIndex = i;
-								break;
-							}
-						}
-					}
 					cn.Close();
 				}
+                if (EditMode)
+                {
+                    foreach (object car in CarListBox1.ValueMember)
+                        if (Convert.ToString(car) == carID) CarListBox1.SelectedValue = car;
+                    foreach (object cli in ClientListBox2.ValueMember)
+                        if (Convert.ToString(cli) == cliID) CarListBox1.SelectedValue = cli;
+                    foreach (object emp in EmployeesListBox1.ValueMember)
+                        if (Convert.ToString(emp) == empID) CarListBox1.SelectedValue = emp;
+                }
+                //doom = true;
 				RefreshPrice(false);
             }
 			catch (Exception er)
