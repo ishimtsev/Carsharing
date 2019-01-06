@@ -78,7 +78,7 @@ namespace carsharing_project
 					string parameters = string.Empty;
 					if (searchString != string.Empty)
 					{
-						parameters = " WHERE fio LIKE '%" + searchString + "%' OR sex LIKE '%" + searchString + "%' OR birth LIKE '%" + searchString + "%' OR address LIKE '%" + searchString + "%' OR phone LIKE '%" + searchString + "%' OR passport LIKE '%" + searchString + "%'";
+						parameters = " WHERE cae_table.name LIKE '%" + searchString + "%' OR client_table.fio LIKE '%" + searchString + "%' OR rental_table.return_date-rental_table.start_date+1 LIKE '%" + searchString + "%' OR round(rental_table.rental_price) LIKE '%" + searchString + "%' OR employee_table.fio LIKE '%" + searchString + "%'";
 					}
 
 					NpgsqlCommand cmd = new NpgsqlCommand("SELECT rental_table.rent_id AS rentID, rental_table.car_id AS carID, rental_table.employee_id AS empID, rental_table.client_id AS cliID, car_table.name AS Автомобиль, " +
@@ -144,5 +144,10 @@ namespace carsharing_project
 				EndDateTimePicker2.Enabled = false;
 			}
 		}
-	}
+
+        private void SearchButton_Click(object sender, EventArgs e)
+        {
+            BindData();
+        }
+    }
 }

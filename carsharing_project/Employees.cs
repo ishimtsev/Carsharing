@@ -65,7 +65,7 @@ namespace carsharing_project
 					string parameters = string.Empty;
 					if (searchString != string.Empty)
 					{
-						parameters = " WHERE fio LIKE '%" + searchString + "%' OR sex LIKE '%" + searchString + "%' OR birth LIKE '%" + searchString + "%' OR address LIKE '%" + searchString + "%' OR phone LIKE '%" + searchString + "%' OR passport LIKE '%" + searchString + "%'";
+						parameters = " WHERE fio LIKE '%" + searchString + "%' OR address LIKE '%" + searchString + "%' OR phone LIKE '%" + searchString + "%' OR passport LIKE '%" + searchString + "%'";
 					}
 
 					NpgsqlCommand cmd = new NpgsqlCommand("select link_id, \"employee-position_table\".emp_id, \"employee-position_table\".pos_id, fio as ФИО, address as Адрес, (case when sex IS false then 'Мужской' else 'Женский' end) as Пол, age as Возраст, passport as \"Паспортные данные\", phone as Телефон, " + "\"name\" as Должность, round(oklad) as \"Оклад (руб)\" FROM \"employee-position_table\" " +
