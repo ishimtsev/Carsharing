@@ -39,7 +39,7 @@ namespace carsharing_project
                 string parameters = string.Empty;
                 if (searchString != string.Empty)
                 {
-                    parameters = " WHERE \"name\" LIKE '%" + searchString + "%' OR \"reg_num\" LIKE '%" + searchString + "%' OR \"engine_num\" LIKE '%" + searchString + "%' \"OR prod_year\" LIKE '%" + searchString + "%' OR mileage LIKE '%" + searchString + "%' OR \"car_price\" LIKE '%" + searchString + "%' OR \"day_price\" LIKE '%" + searchString + "%' OR maintenance LIKE '%" + searchString + "%' OR \"employee_id\" LIKE '%" + searchString + "%' OR specials LIKE '%" + searchString + "%'";
+                    parameters = " WHERE \"name\" LIKE '%" + searchString + "%' OR \"reg_num\" LIKE '%" + searchString + "%' OR \"engine_num\" LIKE '%" + searchString + "%' OR mileage LIKE '%" + searchString + "%' OR \"car_price\" LIKE '%" + searchString + "%'";
                 }
                 NpgsqlCommand cmd = new NpgsqlCommand("select car_id as carID, \"name\" as Название, reg_num as \"Рег. номер\", \"engine_num\" as \"Номер двигателя\", EXTRACT(year from prod_year) as \"Год произодства\", mileage as Пробег, round(car_price) as \"Стоимость (руб)\", round(day_price) as \"Цена дня проката (руб)\", maintenance as \"Последнее ТО\", specials as Примечания, (select COUNT(*) from \"rental_table\" where rental_table.car_id = car_table.car_id) as \"Количество прокатов\", (select MAX(return_date) from \"rental_table\" where rental_table.car_id = car_table.car_id) as \"Последний прокат\" from car_table" + parameters, cn);
                 NpgsqlDataReader reader = cmd.ExecuteReader();
@@ -106,5 +106,10 @@ namespace carsharing_project
 		{
 			BindData();
 		}
-	}
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            BindData();
+        }
+    }
 }
