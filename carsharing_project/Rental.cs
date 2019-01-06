@@ -34,8 +34,17 @@ namespace carsharing_project
 
 		private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
 		{
+            using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
+            {
+                cn.Open();
 
-		}
+                NpgsqlCommand cmd = new NpgsqlCommand("DELETE FROM rental_table WHERE rent_id = " + dataGridView1.CurrentRow.Cells[0].Value.ToString() + ";");
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+
+                cn.Close();
+            }
+            BindData();
+        }
 
 		private void Rental_Load(object sender, EventArgs e)
 		{
@@ -99,8 +108,18 @@ namespace carsharing_project
 
 		private void PaidToolStripMenuItem_Click(object sender, EventArgs e)
 		{
+            using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
+            {
+                cn.Open();
 
-		}
+                using (NpgsqlCommand command = new NpgsqlCommand("UPDATE rental_table SET is_paid = 'true' WHERE (rent_id = '" + dataGridView1.CurrentRow.Cells[0].Value.ToString() + "')", cn))
+                {
+                    command.ExecuteNonQuery();
+                    cn.Close();
+                }
+            }
+            BindData();
+        }
 
 		private void StartDateTimePicker1_ValueChanged(object sender, EventArgs e)
 		{
