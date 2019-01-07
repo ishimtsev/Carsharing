@@ -32,24 +32,31 @@ namespace carsharing_project
         private void BindData()
         {
             dataGridView1.ClearSelection();
-            using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
-            {
-                string searchString = searchTextBox.Text;
-                cn.Open();
-                string parameters = string.Empty;
-                if (searchString != string.Empty)
-                {
-                    parameters = " WHERE \"name\" LIKE '%" + searchString + "%' OR \"reg_num\" LIKE '%" + searchString + "%' OR \"engine_num\" LIKE '%" + searchString + "%'";
-                }
-                NpgsqlCommand cmd = new NpgsqlCommand("select car_id as carID, \"name\" as Название, reg_num as \"Рег. номер\", \"engine_num\" as \"Номер двигателя\", EXTRACT(year from prod_year) as \"Год произодства\", mileage as Пробег, round(car_price) as \"Стоимость (руб)\", round(day_price) as \"Цена дня проката (руб)\", maintenance as \"Последнее ТО\", specials as Примечания, (select COUNT(*) from \"rental_table\" where rental_table.car_id = car_table.car_id) as \"Количество прокатов\", (select MAX(return_date) from \"rental_table\" where rental_table.car_id = car_table.car_id) as \"Последний прокат\" from car_table" + parameters, cn);
-                NpgsqlDataReader reader = cmd.ExecuteReader();
-                DataTable dt = new DataTable();
-                dt.Load(reader);
-                dataGridView1.DataSource = dt;
-                dataGridView1.Columns[0].Visible = false;
-                cn.Close();
-            }
-        }
+            try
+			{
+				using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
+				{
+					string searchString = searchTextBox.Text;
+					cn.Open();
+					string parameters = string.Empty;
+					if (searchString != string.Empty)
+					{
+						parameters = " WHERE \"name\" LIKE '%" + searchString + "%' OR \"reg_num\" LIKE '%" + searchString + "%' OR \"engine_num\" LIKE '%" + searchString + "%'";
+					}
+					NpgsqlCommand cmd = new NpgsqlCommand("select car_id as carID, \"name\" as Название, reg_num as \"Рег. номер\", \"engine_num\" as \"Номер двигателя\", EXTRACT(year from prod_year) as \"Год произодства\", mileage as Пробег, round(car_price) as \"Стоимость (руб)\", round(day_price) as \"Цена дня проката (руб)\", maintenance as \"Последнее ТО\", specials as Примечания, (select COUNT(*) from \"rental_table\" where rental_table.car_id = car_table.car_id) as \"Количество прокатов\", (select MAX(return_date) from \"rental_table\" where rental_table.car_id = car_table.car_id) as \"Последний прокат\" from car_table" + parameters, cn);
+					NpgsqlDataReader reader = cmd.ExecuteReader();
+					DataTable dt = new DataTable();
+					dt.Load(reader);
+					dataGridView1.DataSource = dt;
+					dataGridView1.Columns[0].Visible = false;
+					cn.Close();
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+		}
 
         private void Employees_Search(object sender, EventArgs e)
         {

@@ -23,15 +23,21 @@ namespace carsharing_project
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			//String connectionString = "Server=localhost;Port=5432;User Id=postgres;Password=qwe123;Database=carsharing;";
-			//NpgsqlConnection npgSqlConnection = new NpgsqlConnection(str);
-			//npgSqlConnection.Open();
-			//npgSqlConnection.Close();
-			//npgSqlConnection.Open();
-			////Console.WriteLine("Соединение с БД открыто");
-			//NpgsqlCommand npgSqlCommand = new NpgsqlCommand("SELECT * FROM example", npgSqlConnection);
-			//NpgsqlDataReader npgSqlDataReader = npgSqlCommand.ExecuteReader();
-			//npgSqlConnection.Close();
+			//проверка соединения
+			try
+			{
+				using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
+				{
+					cn.Open();
+					cn.Close();
+				}
+			}
+			catch (Exception er)
+			{
+				MessageBox.Show("Нет соединения с базой данных.");
+				Close();
+				//Application.Exit();
+			}
 		}
 
         private void button1_Click(object sender, EventArgs e)
