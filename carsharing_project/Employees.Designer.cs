@@ -66,20 +66,21 @@
             this.EditToolStripMenuItem,
             this.DeleteToolStripMenuItem});
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
-			this.contextMenuStrip1.Size = new System.Drawing.Size(148, 52);
+			this.contextMenuStrip1.Size = new System.Drawing.Size(211, 80);
 			// 
 			// EditToolStripMenuItem
 			// 
 			this.EditToolStripMenuItem.Name = "EditToolStripMenuItem";
-			this.EditToolStripMenuItem.Size = new System.Drawing.Size(147, 24);
+			this.EditToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
 			this.EditToolStripMenuItem.Text = "Изменить";
 			this.EditToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItem_Click);
 			// 
 			// DeleteToolStripMenuItem
 			// 
 			this.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
-			this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(147, 24);
+			this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
 			this.DeleteToolStripMenuItem.Text = "Удалить";
+			this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
 			// 
 			// AddEmployeeButton
 			// 

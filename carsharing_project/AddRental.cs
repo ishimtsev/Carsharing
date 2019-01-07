@@ -193,30 +193,23 @@ namespace carsharing_project
 
 		public void RefreshPrice(bool carChanged)
 		{
-			//string send = CarListBox1.SelectedValue.ToString();
-			//string carM = "1000", servM = "0", days;
-			//int carPrice = 0;
-			//int totalPrice = 0;
-			if (carChanged && CarListBox1.SelectedValue.ToString() != "System.Data.DataRowView")
+			try
 			{
-				using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
+				if (carChanged && CarListBox1.SelectedValue.ToString() != "System.Data.DataRowView")
 				{
-					cn.Open();
-					NpgsqlCommand cmd = new NpgsqlCommand("select round(day_price) from car_table where car_id = " + CarListBox1.SelectedValue.ToString() + ";", cn);
-					CarPrice = Convert.ToInt32(cmd.ExecuteScalar());
-					//DataTable dt = new DataTable();
-					//dt.Load(reader);
-					//carM = dt.Rows[0][0].ToString();
-					//if (carM.Length > 5)
-					//    carM = carM.Remove(carM.Length - 5);
-					cn.Close();
+					using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
+					{
+						cn.Open();
+						NpgsqlCommand cmd = new NpgsqlCommand("select round(day_price) from car_table where car_id = " + CarListBox1.SelectedValue.ToString() + ";", cn);
+						CarPrice = Convert.ToInt32(cmd.ExecuteScalar());
+						cn.Close();
+					}
 				}
 			}
-			//DateTime d1 = StartDateTimePicker1.Value.Date;
-			//DateTime d2 = EndDateTimePicker2.Value.Date;
-			//TimeSpan time = d2 - d1;
-			//days = Convert.ToString(Convert.ToInt32(time.Days) + 1);
-			//PeriodLabel.Text = days;
+			catch (Exception er)
+			{
+				MessageBox.Show(er.Message);
+			}
 
 			TotalPrice = CarPrice * Convert.ToInt32(PeriodLabel.Text);
 			if (dataGridView1.Rows.Count > 0)
@@ -227,9 +220,6 @@ namespace carsharing_project
 				}
 			}
 			PriceLabel.Text = TotalPrice.ToString();
-			//if (dataGridView1.Rows.Count > 0)
-			//	servM = Convert.ToString(dataGridView1.CurrentRow.Cells[2]);
-			//PriceLabel.Text = Convert.ToString((Convert.ToUInt32(carM) + Convert.ToUInt32(servM)) * Convert.ToUInt32(days));
 		}
 
 		private void OKbutton1_Click(object sender, EventArgs e)

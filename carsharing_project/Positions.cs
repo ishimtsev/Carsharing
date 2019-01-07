@@ -31,25 +31,32 @@ namespace carsharing_project
         private void BindData()
         {
             dataGridView1.ClearSelection();
-            using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
-            {
-                string searchString = textBox1.Text;
-                cn.Open();
-                string parameters = string.Empty;
-                if (searchString != string.Empty)
-                {
-                    parameters = " WHERE \"name\" LIKE '%" + searchString + "%' OR oklad LIKE '%" + searchString + "%' OR duty LIKE '%" + searchString + "%' OR requirements LIKE '%" + searchString + "%'";
-                }
+            try
+			{
+				using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
+				{
+					string searchString = textBox1.Text;
+					cn.Open();
+					string parameters = string.Empty;
+					if (searchString != string.Empty)
+					{
+						parameters = " WHERE \"name\" LIKE '%" + searchString + "%' OR oklad LIKE '%" + searchString + "%' OR duty LIKE '%" + searchString + "%' OR requirements LIKE '%" + searchString + "%'";
+					}
 
-                NpgsqlCommand cmd = new NpgsqlCommand("select \"pos_id\" as ID, name as \"Название\", round(oklad) as \"Оклад (руб)\", Duty as \"Обязанности\", requirements as \"Требования\" from \"position_table\"" + parameters, cn);
-                NpgsqlDataReader reader = cmd.ExecuteReader();
-                DataTable dt = new DataTable();
-                dt.Load(reader);
-                dataGridView1.DataSource = dt;
-                dataGridView1.Columns[0].Visible = false;
-                cn.Close();
-            }
-        }
+					NpgsqlCommand cmd = new NpgsqlCommand("select \"pos_id\" as ID, name as \"Название\", round(oklad) as \"Оклад (руб)\", Duty as \"Обязанности\", requirements as \"Требования\" from \"position_table\"" + parameters, cn);
+					NpgsqlDataReader reader = cmd.ExecuteReader();
+					DataTable dt = new DataTable();
+					dt.Load(reader);
+					dataGridView1.DataSource = dt;
+					dataGridView1.Columns[0].Visible = false;
+					cn.Close();
+				}
+			}
+			catch (Exception er)
+			{
+				MessageBox.Show(er.Message);
+			}
+		}
 
         private void EditToolStripMenuItem_Click(object sender, EventArgs e)
         {

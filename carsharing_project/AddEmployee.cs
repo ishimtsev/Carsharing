@@ -49,50 +49,57 @@ namespace carsharing_project
 
 		private void AddEmployee_Load(object sender, EventArgs e)
 		{
-			using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
+			try
 			{
-				cn.Open();
-
-				//получение списка сотрудников
-				NpgsqlCommand cmd1 = new NpgsqlCommand("select distinct employee_table.emp_id as ID, fio|| ', ' ||passport as emp_name from \"employee-position_table\" join employee_table ON employee_table.emp_id=\"employee-position_table\".emp_id;", cn);
-				NpgsqlDataReader reader1 = cmd1.ExecuteReader();
-				DataTable dt1 = new DataTable();
-				dt1.Load(reader1);
-				EmployeesListBox2.DataSource = dt1;
-				EmployeesListBox2.DisplayMember = "emp_name";
-				EmployeesListBox2.ValueMember = "ID";
-
-				//получение списка должностей
-				NpgsqlCommand cmd2 = new NpgsqlCommand("select pos_id as ID, \"name\"|| ', ' ||round(oklad) as pos_name from position_table;", cn);
-				NpgsqlDataReader reader2 = cmd2.ExecuteReader();
-				DataTable dt2 = new DataTable();
-				dt2.Load(reader2);
-
-				PositionsListBox1.DataSource = dt2;
-				PositionsListBox1.DisplayMember = "pos_name";
-				PositionsListBox1.ValueMember = "ID";
-
-				cn.Close();
-
-				if (EditMode)
+				using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
 				{
-					for (int i = 0; i < dt1.Rows.Count; i++)
+					cn.Open();
+
+					//получение списка сотрудников
+					NpgsqlCommand cmd1 = new NpgsqlCommand("select distinct employee_table.emp_id as ID, fio|| ', ' ||passport as emp_name from \"employee-position_table\" join employee_table ON employee_table.emp_id=\"employee-position_table\".emp_id;", cn);
+					NpgsqlDataReader reader1 = cmd1.ExecuteReader();
+					DataTable dt1 = new DataTable();
+					dt1.Load(reader1);
+					EmployeesListBox2.DataSource = dt1;
+					EmployeesListBox2.DisplayMember = "emp_name";
+					EmployeesListBox2.ValueMember = "ID";
+
+					//получение списка должностей
+					NpgsqlCommand cmd2 = new NpgsqlCommand("select pos_id as ID, \"name\"|| ', ' ||round(oklad) as pos_name from position_table;", cn);
+					NpgsqlDataReader reader2 = cmd2.ExecuteReader();
+					DataTable dt2 = new DataTable();
+					dt2.Load(reader2);
+
+					PositionsListBox1.DataSource = dt2;
+					PositionsListBox1.DisplayMember = "pos_name";
+					PositionsListBox1.ValueMember = "ID";
+
+					cn.Close();
+
+					if (EditMode)
 					{
-						if (dt1.Rows[i][0].ToString() == empID)
+						for (int i = 0; i < dt1.Rows.Count; i++)
 						{
-							EmployeesListBox2.SelectedIndex = i;
-							break;
+							if (dt1.Rows[i][0].ToString() == empID)
+							{
+								EmployeesListBox2.SelectedIndex = i;
+								break;
+							}
 						}
-					}
-					for (int i = 0; i < dt2.Rows.Count; i++)
-					{
-						if (dt2.Rows[i][0].ToString() == posID)
+						for (int i = 0; i < dt2.Rows.Count; i++)
 						{
-							PositionsListBox1.SelectedIndex = i;
-							break;
+							if (dt2.Rows[i][0].ToString() == posID)
+							{
+								PositionsListBox1.SelectedIndex = i;
+								break;
+							}
 						}
 					}
 				}
+			}
+			catch (Exception er)
+			{
+				MessageBox.Show(er.Message);
 			}
 		}
 

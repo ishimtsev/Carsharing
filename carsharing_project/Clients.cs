@@ -31,25 +31,32 @@ namespace carsharing_project
         private void BindData()
         {
 			dataGridView1.ClearSelection();
-			using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
-            {
-				string searchString = textBox1.Text;
-				cn.Open();
-				string parameters = string.Empty;
-				if (searchString != string.Empty)
+			try
+			{
+				using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
 				{
-					parameters = " WHERE fio LIKE '%" + searchString + "%' OR address LIKE '%" + searchString + "%' OR phone LIKE '%" + searchString + "%' OR passport LIKE '%" + searchString + "%'";
-				}
+					string searchString = textBox1.Text;
+					cn.Open();
+					string parameters = string.Empty;
+					if (searchString != string.Empty)
+					{
+						parameters = " WHERE fio LIKE '%" + searchString + "%' OR address LIKE '%" + searchString + "%' OR phone LIKE '%" + searchString + "%' OR passport LIKE '%" + searchString + "%'";
+					}
 
-                NpgsqlCommand cmd = new NpgsqlCommand("select \"cli_id\" as ID, fio as ФИО, (case when sex IS false then 'Мужской' else 'Женский' end) as Пол, birth as \"Дата рождения\", address as Адрес, phone as Телефон, passport as \"Паспортные данные\" from client_table" + parameters, cn);
-                NpgsqlDataReader reader = cmd.ExecuteReader();
-				DataTable dt = new DataTable();
-				dt.Load(reader);
-				dataGridView1.DataSource = dt;
-				dataGridView1.Columns[0].Visible = false;
-				cn.Close();
-            }
-        }
+					NpgsqlCommand cmd = new NpgsqlCommand("select \"cli_id\" as ID, fio as ФИО, (case when sex IS false then 'Мужской' else 'Женский' end) as Пол, birth as \"Дата рождения\", address as Адрес, phone as Телефон, passport as \"Паспортные данные\" from client_table" + parameters, cn);
+					NpgsqlDataReader reader = cmd.ExecuteReader();
+					DataTable dt = new DataTable();
+					dt.Load(reader);
+					dataGridView1.DataSource = dt;
+					dataGridView1.Columns[0].Visible = false;
+					cn.Close();
+				}
+			}
+			catch (Exception er)
+			{
+				MessageBox.Show(er.Message);
+			}
+		}
 
 		private void EditToolStripMenuItem_Click_1(object sender, EventArgs e)
 		{

@@ -49,7 +49,7 @@
 			this.fioTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.fioTextBox.Name = "fioTextBox";
 			this.fioTextBox.Size = new System.Drawing.Size(316, 22);
-			this.fioTextBox.TabIndex = 0;
+			this.fioTextBox.TabIndex = 1;
 			// 
 			// addressTextBox
 			// 
@@ -57,7 +57,7 @@
 			this.addressTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.addressTextBox.Name = "addressTextBox";
 			this.addressTextBox.Size = new System.Drawing.Size(316, 22);
-			this.addressTextBox.TabIndex = 3;
+			this.addressTextBox.TabIndex = 4;
 			// 
 			// phoneTextBox
 			// 
@@ -65,7 +65,7 @@
 			this.phoneTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.phoneTextBox.Name = "phoneTextBox";
 			this.phoneTextBox.Size = new System.Drawing.Size(316, 22);
-			this.phoneTextBox.TabIndex = 4;
+			this.phoneTextBox.TabIndex = 5;
 			// 
 			// passTextBox
 			// 
@@ -73,7 +73,7 @@
 			this.passTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.passTextBox.Name = "passTextBox";
 			this.passTextBox.Size = new System.Drawing.Size(316, 22);
-			this.passTextBox.TabIndex = 5;
+			this.passTextBox.TabIndex = 6;
 			// 
 			// label1
 			// 
@@ -135,7 +135,7 @@
 			this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(173, 44);
-			this.button1.TabIndex = 12;
+			this.button1.TabIndex = 7;
 			this.button1.Text = "OK";
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.OKb_Click);
@@ -150,7 +150,7 @@
 			this.sexBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.sexBox.Name = "sexBox";
 			this.sexBox.Size = new System.Drawing.Size(316, 24);
-			this.sexBox.TabIndex = 13;
+			this.sexBox.TabIndex = 2;
 			// 
 			// birthPicker
 			// 
@@ -158,9 +158,9 @@
 			this.birthPicker.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.birthPicker.Name = "birthPicker";
 			this.birthPicker.Size = new System.Drawing.Size(316, 22);
-			this.birthPicker.TabIndex = 14;
+			this.birthPicker.TabIndex = 3;
 			// 
-			// NewClient
+			// AddClient
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -179,7 +179,7 @@
 			this.Controls.Add(this.addressTextBox);
 			this.Controls.Add(this.fioTextBox);
 			this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-			this.Name = "NewClient";
+			this.Name = "AddClient";
 			this.Text = "Клиент";
 			this.ResumeLayout(false);
 			this.PerformLayout();

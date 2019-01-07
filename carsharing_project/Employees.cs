@@ -95,5 +95,24 @@ namespace carsharing_project
 		{
 			BindData();
 		}
+
+		private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
+				{
+					NpgsqlCommand cmd = new NpgsqlCommand("delete from \"employee-position_table\" WHERE link_id=" + dataGridView1.CurrentRow.Cells[0].Value.ToString() + ";", cn);
+					cn.Open();
+					cmd.ExecuteNonQuery();
+					cn.Close();
+				}
+			}
+			catch (Exception er)
+			{
+				MessageBox.Show(er.Message);
+			}
+			BindData();
+		}
 	}
 }
