@@ -76,16 +76,24 @@ namespace carsharing_project
 					cn.Open();
 					string searchString = SearchTextBox.Text;
 					string parameters = string.Empty;
-					if (searchString != string.Empty)
-					{
-						parameters = " WHERE cae_table.name LIKE '%" + searchString + "%' OR client_table.fio LIKE '%" + searchString + "%' OR rental_table.return_date-rental_table.start_date+1 LIKE '%" + searchString + "%' OR round(rental_table.rental_price) LIKE '%" + searchString + "%' OR employee_table.fio LIKE '%" + searchString + "%'";
-					}
+                    if (searchString != string.Empty)
+                    {
+                        parameters = "WHERE (\"car_table.name\" LIKE '%" + searchString + "%' OR client_table.fio LIKE '%" + searchString + "%' OR rental_table.return_date-rental_table.start_date+1 LIKE '%" + searchString + "%' OR round(rental_table.rental_price) LIKE '%" + searchString + "%' OR employee_table.fio LIKE '%" + searchString + "%') ";
+                        if (FromPeriodCheckBox1.Checked) parameters += " AND ";
+                    }
+                    string sql = "SELECT rental_table.rent_id AS rentID, rental_table.car_id AS carID, rental_table.employee_id AS empID, rental_table.client_id AS cliID, car_table.name AS Автомобиль, " +
+                        "client_table.fio AS Клиент, rental_table.start_date AS \"Начало проката\", rental_table.return_date AS \"Окончание проката\", rental_table.return_date-rental_table.start_date+1 AS \"Период (дней)\", " +
+                        "round(rental_table.rental_price) AS \"Цена (руб)\", employee_table.fio AS Менеджер, (case when rental_table.is_paid IS true then 'Да' else 'Нет' end) as Оплачен FROM rental_table JOIN client_table ON client_table.cli_id=rental_table.client_id " +
+                        "JOIN car_table ON car_table.car_id=rental_table.car_id LEFT JOIN \"employee-position_table\" ON \"employee-position_table\".link_id=rental_table.employee_id " +
+                        "JOIN employee_table ON employee_table.emp_id=\"employee-position_table\".emp_id ORDER BY rental_table.start_date" + parameters;
+                    if (searchString == string.Empty && FromPeriodCheckBox1.Checked) sql += " WHERE";
+                    if (FromPeriodCheckBox1.Checked)
+                    {
+                        sql += " start_date >= '" + StartDateTimePicker1.Value.Year + "-" + StartDateTimePicker1.Value.Month + "-" + StartDateTimePicker1.Value.Day + "'";
+                        sql += " AND (return_date <= '" + EndDateTimePicker2.Value.Year + "-" + EndDateTimePicker2.Value.Month + "-" + EndDateTimePicker2.Value.Day + "')";
+                    }
 
-					NpgsqlCommand cmd = new NpgsqlCommand("SELECT rental_table.rent_id AS rentID, rental_table.car_id AS carID, rental_table.employee_id AS empID, rental_table.client_id AS cliID, car_table.name AS Автомобиль, " +
-		"client_table.fio AS Клиент, rental_table.start_date AS \"Начало проката\", rental_table.return_date AS \"Окончание проката\", rental_table.return_date-rental_table.start_date+1 AS \"Период (дней)\", " +
-		"round(rental_table.rental_price) AS \"Цена (руб)\", employee_table.fio AS Менеджер, (case when rental_table.is_paid IS true then 'Да' else 'Нет' end) as Оплачен FROM rental_table JOIN client_table ON client_table.cli_id=rental_table.client_id " +
-		"JOIN car_table ON car_table.car_id=rental_table.car_id LEFT JOIN \"employee-position_table\" ON \"employee-position_table\".link_id=rental_table.employee_id " +
-		"JOIN employee_table ON employee_table.emp_id=\"employee-position_table\".emp_id ORDER BY rental_table.start_date;" + parameters, cn);
+                    NpgsqlCommand cmd = new NpgsqlCommand(sql, cn);
 					NpgsqlDataReader reader = cmd.ExecuteReader();
 					DataTable dt = new DataTable();
 					dt.Load(reader);
