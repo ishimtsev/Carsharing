@@ -74,7 +74,7 @@ namespace carsharing_project
             form.id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
 
             form.FormClosed += (s, args) => BindData();
-			Show();
+			form.Show();
 		}
 
 		private void DeleteToolStripMenuItem_Click_1(object sender, EventArgs e)
