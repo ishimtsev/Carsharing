@@ -82,7 +82,10 @@ namespace carsharing_project
 
 		private void textBox1_TextChanged(object sender, EventArgs e)
 		{
-
+			Hide();
+			Region form = new Region();
+			form.FormClosed += (s, args) => Show();
+			form.Show();
 		}
 	}
 }
