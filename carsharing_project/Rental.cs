@@ -27,7 +27,7 @@ namespace carsharing_project
 
 		private void EditToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			AddRental form = new AddRental(dataGridView1.CurrentRow.Cells[0].Value.ToString(), dataGridView1.CurrentRow.Cells[1].Value.ToString(), dataGridView1.CurrentRow.Cells[2].Value.ToString(), dataGridView1.CurrentRow.Cells[3].Value.ToString(), dataGridView1.CurrentRow.Cells[6].Value.ToString(), dataGridView1.CurrentRow.Cells[7].Value.ToString(), dataGridView1.CurrentRow.Cells[11].Value.ToString());
+			AddRental form = new AddRental(dataGridView1.CurrentRow.Cells[0].Value.ToString(), dataGridView1.CurrentRow.Cells[1].Value.ToString(), dataGridView1.CurrentRow.Cells[2].Value.ToString(), dataGridView1.CurrentRow.Cells[3].Value.ToString(), dataGridView1.CurrentRow.Cells[6].Value.ToString(), dataGridView1.CurrentRow.Cells[7].Value.ToString(), dataGridView1.CurrentRow.Cells[11].Value.ToString(), dataGridView1.CurrentRow.Cells[12].Value.ToString(), dataGridView1.CurrentRow.Cells[14].Value.ToString());
 			form.FormClosed += (s, args) => BindData();
 			form.Show();
 		}
@@ -83,9 +83,11 @@ namespace carsharing_project
                     }
                     string sql = "SELECT rental_table.rent_id AS rentID, rental_table.car_id AS carID, rental_table.employee_id AS empID, rental_table.client_id AS cliID, car_table.name AS Автомобиль, " +
                         "client_table.fio AS Клиент, rental_table.start_date AS \"Начало проката\", rental_table.return_date AS \"Окончание проката\", rental_table.return_date-rental_table.start_date+1 AS \"Период (дней)\", " +
-                        "round(rental_table.rental_price) AS \"Цена (руб)\", employee_table.fio AS Менеджер, (case when rental_table.is_paid IS true then 'Да' else 'Нет' end) as Оплачен FROM rental_table JOIN client_table ON client_table.cli_id=rental_table.client_id " +
+                        "round(rental_table.rental_price) AS \"Цена (руб)\", employee_table.fio AS Менеджер, (case when rental_table.is_paid IS true then 'Да' else 'Нет' end) as Оплачен, " +
+						"ST_AsText(location) as Местоположение, region_table.name as Область, region_table.reg_id as regID FROM rental_table JOIN client_table ON client_table.cli_id=rental_table.client_id " +
                         "JOIN car_table ON car_table.car_id=rental_table.car_id LEFT JOIN \"employee-position_table\" ON \"employee-position_table\".link_id=rental_table.employee_id " +
-                        "JOIN employee_table ON employee_table.emp_id=\"employee-position_table\".emp_id" + parameters;
+                        "JOIN employee_table ON employee_table.emp_id=\"employee-position_table\".emp_id " +
+						"JOIN region_table ON region_table.reg_id=rental_table.region " + parameters;
                     if (searchString == string.Empty && FromPeriodCheckBox1.Checked) sql += " WHERE ";
                     if (FromPeriodCheckBox1.Checked)
                     {
@@ -102,7 +104,13 @@ namespace carsharing_project
 					dataGridView1.Columns[1].Visible = false;
 					dataGridView1.Columns[2].Visible = false;
 					dataGridView1.Columns[3].Visible = false;
+					dataGridView1.Columns[14].Visible = false; //regID
 					cn.Close();
+
+					for (int i = 0; i < dataGridView1.Rows.Count; i++)
+					{
+						dataGridView1.Rows[i].Cells[12].Value = dataGridView1.Rows[i].Cells[12].Value.ToString().Remove(dataGridView1.Rows[i].Cells[12].Value.ToString().Length - 1).Replace("POINT(", "");
+					}
 				}
 			}
 			catch (Exception er)
@@ -157,5 +165,68 @@ namespace carsharing_project
         {
             BindData();
         }
-    }
+
+		private void DistanceButton1_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				if (SecondLocatTextBox1.Text == "")
+					throw new Exception("Введите точку.");
+
+				SecondLocatTextBox1.Text = SecondLocatTextBox1.Text.Replace(",", "");
+				string[] loc1 = SecondLocatTextBox1.Text.Split(' ');
+				string locat1 = loc1[1] + " " + loc1[0];
+				//string[] loc2 = dataGridView1.CurrentRow.Cells[12].Value.ToString().Split(' ');
+				//string locat2 = loc2[1] + " " + loc2[0];
+				string locat2 = dataGridView1.CurrentRow.Cells[12].Value.ToString();
+
+				using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
+				{
+					cn.Open();
+					NpgsqlCommand cmd = new NpgsqlCommand("select round(ST_Distance(ST_GeomFromEWKT('SRID=4326;POINT(" + locat1 + ")'), ST_GeomFromEWKT('SRID=4326;POINT(" + locat2 + ")'), false))", cn);
+					string distance = cmd.ExecuteScalar().ToString();
+					MessageBox.Show("Расстояние между точкой и автомобилем равно " + distance + " м");
+					cn.Close();
+				}
+			}
+			catch (Exception er)
+			{
+				MessageBox.Show(er.Message);
+			}
+		}
+
+		private void IsInRegionutton3_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				if (SecondLocatTextBox1.Text == "")
+					throw new Exception("Введите точку.");
+
+				SecondLocatTextBox1.Text = SecondLocatTextBox1.Text.Replace(",", "");
+				string[] loc1 = SecondLocatTextBox1.Text.Split(' ');
+				string locat1 = loc1[1] + " " + loc1[0];
+				//string[] loc2 = dataGridView1.CurrentRow.Cells[12].Value.ToString().Split(' ');
+				//string locat2 = loc2[1] + " " + loc2[0];
+				string locat2 = dataGridView1.CurrentRow.Cells[12].Value.ToString();
+
+				using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
+				{
+					cn.Open();
+
+					//select ST_AsText(region) from region_table where reg_id=
+					NpgsqlCommand cmd1 = new NpgsqlCommand("select ST_AsText(region) from region_table where reg_id=" + dataGridView1.CurrentRow.Cells[14].Value.ToString(), cn);
+					string polygon = cmd1.ExecuteScalar().ToString();
+
+					NpgsqlCommand cmd = new NpgsqlCommand("select ST_Contains(ST_GeomFromEWKT('SRID=4326;" + polygon + "'), ST_GeomFromEWKT('SRID=4326;POINT(" + locat2 + ")'))", cn);
+					string distance = cmd.ExecuteScalar().ToString();
+					MessageBox.Show("Расстояние между точкой и автомобилем равно " + distance + " м");
+					cn.Close();
+				}
+			}
+			catch (Exception er)
+			{
+				MessageBox.Show(er.Message);
+			}
+		}
+	}
 }

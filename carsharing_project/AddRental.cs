@@ -20,6 +20,7 @@ namespace carsharing_project
 		public string cliID = string.Empty;
 		public string empID = string.Empty;
 		public string rentID = string.Empty;
+		public string regID = string.Empty;
 		int CarPrice = 0;
 		int TotalPrice = 0;
 
@@ -28,7 +29,8 @@ namespace carsharing_project
 			InitializeComponent();
 		}
 
-		public AddRental(string rentid, string carid, string empid, string cliid, string start, string end, string ispaid)
+		public AddRental(string rentid, string carid, string empid, string cliid, string start, string end, 
+			string ispaid, string location, string regid)
 		{
 			InitializeComponent();
 
@@ -44,7 +46,13 @@ namespace carsharing_project
 				IsPaidCheckBox1.Checked = false;
 			StartDateTimePicker1.Value = DateTime.ParseExact(start, "dd.MM.yyyy H:mm:ss", CultureInfo.InvariantCulture);
 			EndDateTimePicker2.Value = DateTime.ParseExact(end, "dd.MM.yyyy H:mm:ss", CultureInfo.InvariantCulture);
-        }
+			regID = regid;
+			//LocationtextBox1.Text = location.Replace("POINT(", "");
+			//LocationtextBox1.Text = LocationtextBox1.Text.Remove(LocationtextBox1.Text.Length - 1);
+			string[] coordinates = location.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+			LocationtextBox1.Text = coordinates[1] + coordinates[0];
+
+		}
 
 		private void AddRental_Load(object sender, EventArgs e)
 		{
@@ -89,6 +97,16 @@ namespace carsharing_project
 					EmployeesListBox1.DisplayMember = "emp_name";
 					EmployeesListBox1.ValueMember = "empID";
 
+					//получение списка областей
+					NpgsqlCommand cmd5 = new NpgsqlCommand("select reg_id as regID, \"name\" as reg_name from region_table;", cn);
+					NpgsqlDataReader reader5 = cmd5.ExecuteReader();
+					DataTable dt5 = new DataTable();
+					dt5.Load(reader5);
+
+					RegioncomboBox1.DataSource = dt5;
+					RegioncomboBox1.DisplayMember = "reg_name";
+					RegioncomboBox1.ValueMember = "regID";
+
 					if (EditMode)
 					{
 						//получение списка услуг
@@ -124,6 +142,14 @@ namespace carsharing_project
 							if (dt3.Rows[i][0].ToString() == empID)
 							{
 								EmployeesListBox1.SelectedIndex = i;
+								break;
+							}
+						}
+						for (int i = 0; i < dt5.Rows.Count; i++)
+						{
+							if (dt5.Rows[i][0].ToString() == regID)
+							{
+								RegioncomboBox1.SelectedIndex = i;
 								break;
 							}
 						}
@@ -215,24 +241,31 @@ namespace carsharing_project
 		{
             try
             {
-                if (CarListBox1.SelectedIndex == -1 || EmployeesListBox1.SelectedIndex == -1)
+				if (CarListBox1.SelectedIndex == -1 || EmployeesListBox1.SelectedIndex == -1 || RegioncomboBox1.SelectedIndex == -1)
                     throw new Exception("Заполните все пункты.");
-                if (dataGridView1.Rows.Count == 0)
-                    throw new Exception("Добавьте и выберите услугу.");
+				if (LocationtextBox1.Text == "")
+					throw new Exception("Местоположение не добавлено.");
 
-                if (!EditMode) //добавление
+
+				if (!EditMode) //добавление
                 {
                     if (ClientListBox2.SelectedIndex == -1)
                         throw new Exception("Заполните все пункты.");
+					LocationtextBox1.Text = LocationtextBox1.Text.Replace(",", "");
 
-                    using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
+
+					using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
                     {
                         cn.Open();
                         string totalprice = TotalPrice.ToString();
                         string services = SerializeServices();
 
-                        NpgsqlCommand cmd1 = new NpgsqlCommand("insert into rental_table (start_date, return_date, car_id, client_id, rental_price, is_paid, employee_id, services) " +
-                            "VALUES ('" + StartDateTimePicker1.Value.ToString("yyyy-MM-dd") + "', '" + EndDateTimePicker2.Value.ToString("yyyy-MM-dd") + "', " + CarListBox1.SelectedValue.ToString() + ", " + ClientListBox2.SelectedValue.ToString() + ", " + totalprice + ", " + (IsPaidCheckBox1.Checked ? "true" : "false") + ", " + EmployeesListBox1.SelectedValue.ToString() + ", '" + services + "');", cn);
+						string[] loc = LocationtextBox1.Text.Split(' ');
+						string locat = loc[1] + " " + loc[0];
+
+						NpgsqlCommand cmd1 = new NpgsqlCommand("insert into rental_table (start_date, return_date, car_id, client_id, rental_price, is_paid, employee_id, services, location, region) " +
+							"VALUES ('" + StartDateTimePicker1.Value.ToString("yyyy-MM-dd") + "', '" + EndDateTimePicker2.Value.ToString("yyyy-MM-dd") + "', " + CarListBox1.SelectedValue.ToString() + ", " + ClientListBox2.SelectedValue.ToString() + ", " + totalprice + ", " + (IsPaidCheckBox1.Checked ? "true" : "false") + ", " + EmployeesListBox1.SelectedValue.ToString() + ", " + services + ", "
+							+ " ST_GeomFromEWKT('SRID=4326;POINT(" + locat + ")'), " + RegioncomboBox1.SelectedValue.ToString() + " );", cn);
                         cmd1.ExecuteNonQuery();
                         cn.Close();
                     }
@@ -246,10 +279,13 @@ namespace carsharing_project
                         string totalprice = TotalPrice.ToString();
                         string services = SerializeServices();
 
+						string[] loc = LocationtextBox1.Text.Split(' ');
+						string locat = loc[1] + " " + loc[0];
+
 						NpgsqlCommand cmd1 = new NpgsqlCommand("update rental_table SET start_date='" + StartDateTimePicker1.Value.ToString("yyyy-MM-dd") +
 							"', return_date='" + EndDateTimePicker2.Value.ToString("yyyy-MM-dd") + "', car_id='" + CarListBox1.SelectedValue.ToString() +
 							"', rental_price=" + totalprice + ", is_paid=" + (IsPaidCheckBox1.Checked ? "true" : "false") +
-							", employee_id=" + EmployeesListBox1.SelectedValue.ToString() + ", services='" + services + "' WHERE rental_table.rent_id=" + rentID + ";", cn);
+							", employee_id=" + EmployeesListBox1.SelectedValue.ToString() + ", services=" + services + ", location=ST_GeomFromEWKT('SRID=4326;POINT(" + locat + ")'), region=" + RegioncomboBox1.SelectedValue.ToString() + " WHERE rental_table.rent_id=" + rentID + ";", cn);
                         cmd1.ExecuteNonQuery();
                         cn.Close();
                     }
@@ -274,7 +310,7 @@ namespace carsharing_project
 				{
 					list.services.Add(new Service(row.Cells[0].Value.ToString(), row.Cells[1].Value.ToString(), row.Cells[2].Value.ToString(), row.Cells[3].Value.ToString()));
 				}
-				return JsonConvert.SerializeObject(list);
+				return "'" + JsonConvert.SerializeObject(list) + "'";
 			}
 		}
 

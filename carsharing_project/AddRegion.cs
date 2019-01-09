@@ -31,6 +31,26 @@ namespace carsharing_project
 			PointstextBox2.Text = points;
 		}
 
+		private string Reversed(string points_unsorted)
+		{
+			bool end = true;
+			string sqlend = "";
+			string sql = "";
+			String[] words = points_unsorted.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+			foreach (string str in words)
+			{
+				String[] points = str.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+				sql += points[1] + " " + points[0] + ",";
+				if (end)
+				{
+					sqlend = points[1] + points[0];
+					end = false;
+				}
+			}
+			sql += sqlend;
+			return sql;
+		}
+
 		private void OKbutton1_Click(object sender, EventArgs e)
 		{
 			try
