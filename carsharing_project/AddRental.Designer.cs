@@ -219,6 +219,7 @@
 			this.dataGridView1.Size = new System.Drawing.Size(997, 197);
 			this.dataGridView1.TabIndex = 6;
 			this.dataGridView1.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDown);
+			this.dataGridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
 			// 
 			// contextMenuStrip1
 			// 

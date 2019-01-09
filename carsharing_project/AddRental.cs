@@ -147,17 +147,6 @@ namespace carsharing_project
 				dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
 				dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
 				contextMenuStrip1.Show(MousePosition);
-
-				if (dataGridView1.Columns.Count == 0)
-				{
-					EditToolStripMenuItem.Enabled = false;
-					DeleteToolStripMenuItem.Enabled = false;
-				}
-				else
-				{
-					EditToolStripMenuItem.Enabled = true;
-					DeleteToolStripMenuItem.Enabled = true;
-				}
 			}
 		}
 
@@ -303,6 +292,20 @@ namespace carsharing_project
         private void CarListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 			RefreshPrice(true);
+		}
+
+		private void dataGridView1_MouseDown(object sender, MouseEventArgs e)
+		{
+			if (dataGridView1.Rows.Count == 0)
+			{
+				EditToolStripMenuItem.Enabled = false;
+				DeleteToolStripMenuItem.Enabled = false;
+			}
+			else
+			{
+				EditToolStripMenuItem.Enabled = true;
+				DeleteToolStripMenuItem.Enabled = true;
+			}
 		}
 	}
 }
