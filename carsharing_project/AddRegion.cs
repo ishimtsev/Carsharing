@@ -60,7 +60,7 @@ namespace carsharing_project
 					else
 					{
 						using (NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO region_table (\"name\", region) " +
-						"VALUES ('" + NametextBox1.Text + "', '" + points + "')", cn))
+						"VALUES ('" + NametextBox1.Text + "', ST_MakePolygon(ST_GeomFromEWKT('SRID=4326;LINESTRING(" + points + ")')))", cn))
 						{
 							command.ExecuteNonQuery();
 							cn.Close();
