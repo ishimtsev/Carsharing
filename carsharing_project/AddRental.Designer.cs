@@ -52,6 +52,10 @@
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.EmployeesListBox1 = new System.Windows.Forms.ListBox();
 			this.label9 = new System.Windows.Forms.Label();
+			this.label7 = new System.Windows.Forms.Label();
+			this.label8 = new System.Windows.Forms.Label();
+			this.RegioncomboBox1 = new System.Windows.Forms.ComboBox();
+			this.LocationtextBox1 = new System.Windows.Forms.TextBox();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.contextMenuStrip1.SuspendLayout();
@@ -195,9 +199,9 @@
 			// 
 			// OKbutton1
 			// 
-			this.OKbutton1.Location = new System.Drawing.Point(679, 657);
+			this.OKbutton1.Location = new System.Drawing.Point(629, 669);
 			this.OKbutton1.Name = "OKbutton1";
-			this.OKbutton1.Size = new System.Drawing.Size(135, 48);
+			this.OKbutton1.Size = new System.Drawing.Size(157, 48);
 			this.OKbutton1.TabIndex = 5;
 			this.OKbutton1.Text = "OK";
 			this.OKbutton1.UseVisualStyleBackColor = true;
@@ -280,11 +284,49 @@
 			this.label9.TabIndex = 1;
 			this.label9.Text = "Сотрудник";
 			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(484, 583);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(64, 17);
+			this.label7.TabIndex = 1;
+			this.label7.Text = "Область";
+			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.Location = new System.Drawing.Point(484, 611);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(122, 17);
+			this.label8.TabIndex = 1;
+			this.label8.Text = "Местоположение";
+			// 
+			// RegioncomboBox1
+			// 
+			this.RegioncomboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.RegioncomboBox1.FormattingEnabled = true;
+			this.RegioncomboBox1.Location = new System.Drawing.Point(629, 578);
+			this.RegioncomboBox1.Name = "RegioncomboBox1";
+			this.RegioncomboBox1.Size = new System.Drawing.Size(157, 24);
+			this.RegioncomboBox1.TabIndex = 10;
+			// 
+			// LocationtextBox1
+			// 
+			this.LocationtextBox1.Location = new System.Drawing.Point(629, 608);
+			this.LocationtextBox1.Name = "LocationtextBox1";
+			this.LocationtextBox1.Size = new System.Drawing.Size(157, 22);
+			this.LocationtextBox1.TabIndex = 11;
+			// 
 			// AddRental
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1027, 724);
+			this.Controls.Add(this.LocationtextBox1);
+			this.Controls.Add(this.RegioncomboBox1);
+			this.Controls.Add(this.label8);
+			this.Controls.Add(this.label7);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.OKbutton1);
 			this.Controls.Add(this.groupBox1);
@@ -332,5 +374,9 @@
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.ListBox EmployeesListBox1;
 		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.Label label7;
+		private System.Windows.Forms.Label label8;
+		private System.Windows.Forms.ComboBox RegioncomboBox1;
+		private System.Windows.Forms.TextBox LocationtextBox1;
 	}
 }

@@ -31,6 +31,26 @@ namespace carsharing_project
 			PointstextBox2.Text = points;
 		}
 
+		private string Reversed(string points_unsorted)
+		{
+			bool end = true;
+			string sqlend = "";
+			string sql = "";
+			points_unsorted = points_unsorted.Replace(",", "");
+			String[] words = points_unsorted.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+			foreach (string str in words)
+			{
+				String[] points = str.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+				sql += points[1] + " " + points[0] + ",";
+				if (end)
+				{
+					sqlend = points[1] + " " + points[0];
+					end = false;
+				}
+			}
+			return sql + sqlend;
+		}
+
 		private void OKbutton1_Click(object sender, EventArgs e)
 		{
 			try
@@ -42,7 +62,7 @@ namespace carsharing_project
 
 				///////////////////////////////////////////////////////////////////////////////////////
 				//преобразование точек
-				string points = string.Empty;
+				string points = Reversed(PointstextBox2.Text);
 
 				using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
 				{

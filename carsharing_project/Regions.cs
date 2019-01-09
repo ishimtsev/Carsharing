@@ -31,7 +31,7 @@ namespace carsharing_project
 
 		private void Regions_Load(object sender, EventArgs e)
 		{
-
+			BindData();
 		}
 
 		private void BindData()
@@ -49,7 +49,7 @@ namespace carsharing_project
 						parameters = " WHERE \"name\" LIKE '%" + searchString + "%'";
 					}
 
-					NpgsqlCommand cmd = new NpgsqlCommand("select reg_id AS regID, \"name\" as Название, region as Область FROM region_table" + parameters, cn);
+					NpgsqlCommand cmd = new NpgsqlCommand("select reg_id AS regID, \"name\" as Название, ST_AsText(region) as Область FROM region_table" + parameters, cn);
 					NpgsqlDataReader reader = cmd.ExecuteReader();
 					DataTable dt = new DataTable();
 					dt.Load(reader);
