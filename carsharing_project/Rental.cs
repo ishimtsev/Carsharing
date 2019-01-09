@@ -199,14 +199,7 @@ namespace carsharing_project
 		{
 			try
 			{
-				if (SecondLocatTextBox1.Text == "")
-					throw new Exception("Введите точку.");
-
 				SecondLocatTextBox1.Text = SecondLocatTextBox1.Text.Replace(",", "");
-				string[] loc1 = SecondLocatTextBox1.Text.Split(' ');
-				string locat1 = loc1[1] + " " + loc1[0];
-				//string[] loc2 = dataGridView1.CurrentRow.Cells[12].Value.ToString().Split(' ');
-				//string locat2 = loc2[1] + " " + loc2[0];
 				string locat2 = dataGridView1.CurrentRow.Cells[12].Value.ToString();
 
 				using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
@@ -219,7 +212,10 @@ namespace carsharing_project
 
 					NpgsqlCommand cmd = new NpgsqlCommand("select ST_Contains(ST_GeomFromEWKT('SRID=4326;" + polygon + "'), ST_GeomFromEWKT('SRID=4326;POINT(" + locat2 + ")'))", cn);
 					string distance = cmd.ExecuteScalar().ToString();
-					MessageBox.Show("Расстояние между точкой и автомобилем равно " + distance + " м");
+					if (distance == "True")
+						MessageBox.Show("Автомобиль находится внутри своей области.");
+					else
+						MessageBox.Show("Автомобиль находится за границей своей области.");
 					cn.Close();
 				}
 			}

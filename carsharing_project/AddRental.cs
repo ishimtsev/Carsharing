@@ -50,8 +50,7 @@ namespace carsharing_project
 			//LocationtextBox1.Text = location.Replace("POINT(", "");
 			//LocationtextBox1.Text = LocationtextBox1.Text.Remove(LocationtextBox1.Text.Length - 1);
 			string[] coordinates = location.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-			LocationtextBox1.Text = coordinates[1] + coordinates[0];
-
+			LocationtextBox1.Text = coordinates[1] + " " + coordinates[0];
 		}
 
 		private void AddRental_Load(object sender, EventArgs e)
