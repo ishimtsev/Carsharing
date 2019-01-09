@@ -66,15 +66,15 @@ namespace carsharing_project
 
 		private void EditToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			AddRegion form = new AddRegion();
+			AddRegion form = new AddRegion(dataGridView1.CurrentRow.Cells[0].Value.ToString(), dataGridView1.CurrentRow.Cells[1].Value.ToString(),
+				dataGridView1.CurrentRow.Cells[2].Value.ToString());
 			form.FormClosed += (s, args) => BindData();
 			form.Show();
 		}
 
 		private void AddEmployeeButton_Click(object sender, EventArgs e)
 		{
-			AddRegion form = new AddRegion(dataGridView1.CurrentRow.Cells[0].Value.ToString(), dataGridView1.CurrentRow.Cells[1].Value.ToString(),
-				dataGridView1.CurrentRow.Cells[2].Value.ToString());
+			AddRegion form = new AddRegion();
 			form.FormClosed += (s, args) => BindData();
 			form.Show();
 		}

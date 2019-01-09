@@ -82,8 +82,13 @@ namespace carsharing_project
 
 		private void textBox1_TextChanged(object sender, EventArgs e)
 		{
+			
+		}
+
+		private void button3_Click_1(object sender, EventArgs e)
+		{
 			Hide();
-			Region form = new Region();
+			Regions form = new Regions();
 			form.FormClosed += (s, args) => Show();
 			form.Show();
 		}
