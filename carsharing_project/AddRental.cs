@@ -30,7 +30,7 @@ namespace carsharing_project
 		}
 
 		public AddRental(string rentid, string carid, string empid, string cliid, string start, string end, 
-			string ispaid, string location, string regid)
+			string ispaid, string regid)
 		{
 			InitializeComponent();
 
@@ -49,8 +49,8 @@ namespace carsharing_project
 			regID = regid;
 			//LocationtextBox1.Text = location.Replace("POINT(", "");
 			//LocationtextBox1.Text = LocationtextBox1.Text.Remove(LocationtextBox1.Text.Length - 1);
-			string[] coordinates = location.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-			LocationtextBox1.Text = coordinates[1] + " " + coordinates[0];
+			//string[] coordinates = location.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+			//LocationtextBox1.Text = coordinates[1] + " " + coordinates[0];
 		}
 
 		private void AddRental_Load(object sender, EventArgs e)
@@ -242,16 +242,14 @@ namespace carsharing_project
             {
 				if (CarListBox1.SelectedIndex == -1 || EmployeesListBox1.SelectedIndex == -1 || RegioncomboBox1.SelectedIndex == -1)
                     throw new Exception("Заполните все пункты.");
-				if (LocationtextBox1.Text == "")
-					throw new Exception("Местоположение не добавлено.");
+				//if (LocationtextBox1.Text == "")
+				//	throw new Exception("Местоположение не добавлено.");
 
 
 				if (!EditMode) //добавление
                 {
                     if (ClientListBox2.SelectedIndex == -1)
                         throw new Exception("Заполните все пункты.");
-					LocationtextBox1.Text = LocationtextBox1.Text.Replace(",", "");
-
 
 					using (NpgsqlConnection cn = new NpgsqlConnection(Connection.str))
                     {
@@ -259,12 +257,10 @@ namespace carsharing_project
                         string totalprice = TotalPrice.ToString();
                         string services = SerializeServices();
 
-						string[] loc = LocationtextBox1.Text.Split(' ');
-						string locat = loc[1] + " " + loc[0];
 
-						NpgsqlCommand cmd1 = new NpgsqlCommand("insert into rental_table (start_date, return_date, car_id, client_id, rental_price, is_paid, employee_id, services, location, region) " +
+						NpgsqlCommand cmd1 = new NpgsqlCommand("insert into rental_table (start_date, return_date, car_id, client_id, rental_price, is_paid, employee_id, services, region) " +
 							"VALUES ('" + StartDateTimePicker1.Value.ToString("yyyy-MM-dd") + "', '" + EndDateTimePicker2.Value.ToString("yyyy-MM-dd") + "', " + CarListBox1.SelectedValue.ToString() + ", " + ClientListBox2.SelectedValue.ToString() + ", " + totalprice + ", " + (IsPaidCheckBox1.Checked ? "true" : "false") + ", " + EmployeesListBox1.SelectedValue.ToString() + ", " + services + ", "
-							+ " ST_GeomFromEWKT('SRID=4326;POINT(" + locat + ")'), " + RegioncomboBox1.SelectedValue.ToString() + " );", cn);
+							+ RegioncomboBox1.SelectedValue.ToString() + " );", cn);
                         cmd1.ExecuteNonQuery();
                         cn.Close();
                     }
@@ -278,13 +274,10 @@ namespace carsharing_project
                         string totalprice = TotalPrice.ToString();
                         string services = SerializeServices();
 
-						string[] loc = LocationtextBox1.Text.Split(' ');
-						string locat = loc[1] + " " + loc[0];
-
 						NpgsqlCommand cmd1 = new NpgsqlCommand("update rental_table SET start_date='" + StartDateTimePicker1.Value.ToString("yyyy-MM-dd") +
 							"', return_date='" + EndDateTimePicker2.Value.ToString("yyyy-MM-dd") + "', car_id='" + CarListBox1.SelectedValue.ToString() +
 							"', rental_price=" + totalprice + ", is_paid=" + (IsPaidCheckBox1.Checked ? "true" : "false") +
-							", employee_id=" + EmployeesListBox1.SelectedValue.ToString() + ", services=" + services + ", location=ST_GeomFromEWKT('SRID=4326;POINT(" + locat + ")'), region=" + RegioncomboBox1.SelectedValue.ToString() + " WHERE rental_table.rent_id=" + rentID + ";", cn);
+							", employee_id=" + EmployeesListBox1.SelectedValue.ToString() + ", services=" + services + ", region=" + RegioncomboBox1.SelectedValue.ToString() + " WHERE rental_table.rent_id=" + rentID + ";", cn);
                         cmd1.ExecuteNonQuery();
                         cn.Close();
                     }

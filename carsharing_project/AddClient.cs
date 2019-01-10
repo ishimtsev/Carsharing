@@ -68,9 +68,7 @@ namespace carsharing_project
                             using (NpgsqlCommand command = new NpgsqlCommand($"UPDATE client_table SET fio = '" +
                              fioTextBox.Text + "', sex = '" + sex + "', birth = '" + newbirth + "', \"address\" = '" + addressTextBox.Text + "', phone = '" + phoneTextBox.Text + "', passport = '" + passTextBox.Text + "' WHERE (cli_id = '" + id + "')", cn))
                             {
-                                command.ExecuteNonQuery();
-                                cn.Close();
-                                Close();
+                                command.ExecuteNonQuery(); 
                             }
                         }
                         else
@@ -79,11 +77,11 @@ namespace carsharing_project
                             "VALUES ('" + fioTextBox.Text + "', '" + sex + "', '" + newbirth + "', '" + addressTextBox.Text + "', '" + phoneTextBox.Text + "', '" + passTextBox.Text + "')", cn))
                             {
                                 command.ExecuteNonQuery();
-                                cn.Close();
-                                Close();
                             }
                         }
-                    }
+						cn.Close();
+						Close();
+					}
                 }
             }
             catch (Exception ex)

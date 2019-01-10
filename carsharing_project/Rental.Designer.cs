@@ -43,10 +43,7 @@
 			this.EndDateTimePicker2 = new System.Windows.Forms.DateTimePicker();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
-			this.DistanceButton1 = new System.Windows.Forms.Button();
-			this.IsInRegionutton3 = new System.Windows.Forms.Button();
-			this.SecondLocatTextBox1 = new System.Windows.Forms.TextBox();
-			this.label3 = new System.Windows.Forms.Label();
+			this.MapButton1 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.contextMenuStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -59,13 +56,13 @@
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
 			this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.dataGridView1.Location = new System.Drawing.Point(0, 190);
+			this.dataGridView1.Location = new System.Drawing.Point(0, 108);
 			this.dataGridView1.MultiSelect = false;
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.ReadOnly = true;
 			this.dataGridView1.RowTemplate.Height = 24;
 			this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dataGridView1.Size = new System.Drawing.Size(1210, 496);
+			this.dataGridView1.Size = new System.Drawing.Size(1210, 578);
 			this.dataGridView1.TabIndex = 0;
 			this.dataGridView1.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDown);
 			// 
@@ -182,56 +179,27 @@
 			this.label4.TabIndex = 4;
 			this.label4.Text = "По";
 			// 
-			// DistanceButton1
+			// MapButton1
 			// 
-			this.DistanceButton1.Location = new System.Drawing.Point(168, 112);
-			this.DistanceButton1.Name = "DistanceButton1";
-			this.DistanceButton1.Size = new System.Drawing.Size(123, 61);
-			this.DistanceButton1.TabIndex = 8;
-			this.DistanceButton1.Text = "Расстояние между двумя точками";
-			this.DistanceButton1.UseVisualStyleBackColor = true;
-			this.DistanceButton1.Click += new System.EventHandler(this.DistanceButton1_Click);
-			// 
-			// IsInRegionutton3
-			// 
-			this.IsInRegionutton3.Location = new System.Drawing.Point(297, 112);
-			this.IsInRegionutton3.Name = "IsInRegionutton3";
-			this.IsInRegionutton3.Size = new System.Drawing.Size(123, 61);
-			this.IsInRegionutton3.TabIndex = 8;
-			this.IsInRegionutton3.Text = "Находится ли автомобиль в области";
-			this.IsInRegionutton3.UseVisualStyleBackColor = true;
-			this.IsInRegionutton3.Click += new System.EventHandler(this.IsInRegionutton3_Click);
-			// 
-			// SecondLocatTextBox1
-			// 
-			this.SecondLocatTextBox1.Location = new System.Drawing.Point(15, 142);
-			this.SecondLocatTextBox1.Name = "SecondLocatTextBox1";
-			this.SecondLocatTextBox1.Size = new System.Drawing.Size(147, 22);
-			this.SecondLocatTextBox1.TabIndex = 9;
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(41, 122);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(98, 17);
-			this.label3.TabIndex = 4;
-			this.label3.Text = "Вторая точка";
+			this.MapButton1.Location = new System.Drawing.Point(735, 24);
+			this.MapButton1.Name = "MapButton1";
+			this.MapButton1.Size = new System.Drawing.Size(178, 45);
+			this.MapButton1.TabIndex = 10;
+			this.MapButton1.Text = "Карта";
+			this.MapButton1.UseVisualStyleBackColor = true;
+			this.MapButton1.Click += new System.EventHandler(this.MapButton1_Click);
 			// 
 			// Rental
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1210, 686);
-			this.Controls.Add(this.SecondLocatTextBox1);
-			this.Controls.Add(this.IsInRegionutton3);
-			this.Controls.Add(this.DistanceButton1);
+			this.Controls.Add(this.MapButton1);
 			this.Controls.Add(this.StartDateTimePicker1);
 			this.Controls.Add(this.EndDateTimePicker2);
 			this.Controls.Add(this.FromPeriodCheckBox1);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.label2);
-			this.Controls.Add(this.label3);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.SearchTextBox);
 			this.Controls.Add(this.SearchButton);
@@ -263,9 +231,6 @@
 		private System.Windows.Forms.DateTimePicker EndDateTimePicker2;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.Button DistanceButton1;
-		private System.Windows.Forms.Button IsInRegionutton3;
-		private System.Windows.Forms.TextBox SecondLocatTextBox1;
-		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Button MapButton1;
 	}
 }

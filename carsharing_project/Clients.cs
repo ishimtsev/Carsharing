@@ -60,7 +60,7 @@ namespace carsharing_project
 
 		private void EditToolStripMenuItem_Click_1(object sender, EventArgs e)
 		{
-            Hide();
+            //Hide();
             AddClient form = new AddClient();
             form.fioTextBox.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
             form.sexBox.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
@@ -68,7 +68,6 @@ namespace carsharing_project
             form.addressTextBox.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
             form.phoneTextBox.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
             form.passTextBox.Text = dataGridView1.CurrentRow.Cells[6].Value.ToString();
-
 
             form.EditMode = true;
             form.id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
