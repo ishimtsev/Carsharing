@@ -83,7 +83,7 @@ namespace carsharing_project
                     }
                     string sql = "SELECT rental_table.rent_id AS rentID, rental_table.car_id AS carID, rental_table.employee_id AS empID, rental_table.client_id AS cliID, car_table.name AS Автомобиль, " +
                         "client_table.fio AS Клиент, rental_table.start_date AS \"Начало проката\", rental_table.return_date AS \"Окончание проката\", rental_table.return_date-rental_table.start_date+1 AS \"Период (дней)\", " +
-						"round(rental_table.rental_price) AS \"Цена (руб)\", employee_table.fio AS Менеджер, (case when rental_table.was_outside IS true then 'Да' else 'Нет' end) as \"Выход за область\", " +
+						"round(rental_table.rental_price) AS \"Цена (руб)\", employee_table.fio AS Менеджер, (case when rental_table.was_outside IS true then 'Нет' else 'Да' end) as \"Выход за область\", " +
 						"region_table.name as Область, region_table.reg_id as regID, (case when rental_table.is_paid IS true then 'Да' else 'Нет' end) as Оплачен FROM rental_table JOIN client_table ON client_table.cli_id=rental_table.client_id " +
                         "JOIN car_table ON car_table.car_id=rental_table.car_id LEFT JOIN \"employee-position_table\" ON \"employee-position_table\".link_id=rental_table.employee_id " +
                         "JOIN employee_table ON employee_table.emp_id=\"employee-position_table\".emp_id " +
